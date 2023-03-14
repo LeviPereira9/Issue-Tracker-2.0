@@ -18,19 +18,19 @@ const AcessLevel: React.FC<acessLevelProps> = ({setAcessLevel}) => {
     {
       level: 2,
       title: 'Technical',
-      desc: 'Possui acesso aos recursos do sistema que permitem gerenciar os chamados, como definir prioridades, atribuir tarefas, atualizar status e fechar chamados. Além disso, também pode visualizar relatórios e estatísticas.',
+      desc: 'Maior acesso ao sistema, com acesso ao gerenciamento de conteúdo do site, o que inclui a criação, edição e exclusão de conteúdo.',
     },
     {
       level: 3,
       title: 'Administrator',
-      desc: 'Possui acesso total ao sistema e pode gerenciar todas as configurações e recursos, incluindo usuários, departamentos, categorias, configurações gerais do sistema e outras configurações avançadas. Também pode executar tarefas de manutenção e atualização.',
+      desc: 'Acesso total ao sistema, permitindo que gerencie todas as configurações e recursos, como usuários, departamentos e níveis de acesso.',
     },
   ];
 
   return (
-    <div className="d-flex justify-content-between my-3">
+    <div className="row justify-content-around my-3">
       {levels.map(level => (
-        <Card className="col-12 col-md-3 text-center" key={level.title}>
+        <Card className="col-8 col-md-4 text-center p-0 mb-3" key={level.title}>
           <Card.Header>Nível de Acesso - {level.level}</Card.Header>
           <Card.Body>
             {/* <Card.Img variant='top' src='https://via.placeholder.com/300' className='h-25'/> */}
