@@ -13,20 +13,16 @@ import { InputGroup } from 'react-bootstrap';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 //Types
-type blablabla = {
-  firstName?: string;
-  lastName?: string;
-  department?: string;
-  email?: string;
-  password?: string;
-  confirmPassword?: string;
-  acessLevel?: number;
-  terms?: string;
-};
+import { CreateAuth, FormRegister } from '../types/collectionsType';
+
+//Hooks
+import { useAuthentication } from '../hooks/useAuthentication';
 
 const Register = () => {
-  const [formErrors, setFormErrors] = useState<blablabla>({});
+  const [formErrors, setFormErrors] = useState<FormRegister>({});
   const [showPassword, setShowPassword] = useState(false);
+
+  const {createAccount, loading, error, errorMessage} = useAuthentication();
 
   //useForm Hooks
   const {
@@ -38,20 +34,17 @@ const Register = () => {
 
   //Validation from useForms
   useEffect(() => {
-    setFormErrors(errors as blablabla);
+    setFormErrors(errors as FormRegister);
   }, [errors]);
 
-  const onSubmit = (data: blablabla) => {
-    const createAccount = {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      department: data.department,
-      acessLevel: 1,
-      email: data.email,
-      password: data.password,
-    };
-
-    console.log(createAccount);
+  const onSubmit = (data: FormRegister) => {
+    
+    const createAuth:CreateAuth = {
+      email: data.email!,
+      password: data.password!
+    }
+    
+    createAccount({createAuth, data});
   };
 
   return (
