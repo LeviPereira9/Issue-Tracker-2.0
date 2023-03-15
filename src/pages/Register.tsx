@@ -17,6 +17,7 @@ type blablabla = {
   password?: string;
   confirmPassword?: string;
   acessLevel?: number;
+  terms?: string;
 };
 
 const Register = () => {
@@ -174,14 +175,14 @@ const Register = () => {
         <Form.Group controlId="regTerms">
           <Form.Check
             label="Aceitar os termos de uso"
-            {...register('priva', { required: true })}
+            aria-label='Aceitar os termos de uso'
+            tabIndex={0}
+            {...register('terms', { required: true })}
+            isInvalid={!!formErrors.terms}
+            feedback="You must agree before submitting."
+            feedbackType="invalid"
           />
-        </Form.Group>
-        <Form.Group>
-          <Form.Check
-            label="Assinar nossa Newsletter"
-            {...register('newsletter')}
-          ></Form.Check>
+          
         </Form.Group>
         <Button
           type="submit"
