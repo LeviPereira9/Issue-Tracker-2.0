@@ -4,3 +4,10 @@
 @import './3_modules/modules.scss';
 
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+#firstName-addon {
+  background-color: white;
+  border-start-end-radius: 10px;
+  border-end-end-radius: 10px;
+  border: none;
+}

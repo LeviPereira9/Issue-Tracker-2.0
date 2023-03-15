@@ -3,4 +3,14 @@
   color: white;
   border-radius: 10px;
   padding: 25px 10px 0px 10px;
+
+  &__invalid {
+    border-color: #dc3545;
+  }
+
+  &__registerAddon {
+    background-color: white !important;
+    border-start-end-radius: 5px !important;
+    border-end-end-radius: 5px !important;
+  }
 }

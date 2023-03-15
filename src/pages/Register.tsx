@@ -7,6 +7,10 @@ import { useForm } from 'react-hook-form';
 //Bootstrap
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { InputGroup } from 'react-bootstrap';
+
+//Icons
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 //Types
 type blablabla = {
@@ -22,6 +26,7 @@ type blablabla = {
 
 const Register = () => {
   const [formErrors, setFormErrors] = useState<blablabla>({});
+  const [showPassword, setShowPassword] = useState(false);
 
   //useForm Hooks
   const {
@@ -51,7 +56,10 @@ const Register = () => {
 
   return (
     <div className="container d-flex">
-      <div className="container d-none d-md-block"></div>
+      <div className="container d-none d-md-block">
+        <h2>Create Account</h2>
+        <p>Already have a account? Log in</p>
+      </div>
       <Form
         className="row justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle"
         onSubmit={handleSubmit(onSubmit)}
@@ -136,53 +144,87 @@ const Register = () => {
         </Form.Group>
         <Form.Group className="mb-3 col-12" controlId="regPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Insira uma senha"
-            aria-label="Escolha uma senha"
-            tabIndex={0}
-            autoComplete="password"
-            {...register('password', { required: true })}
-            isInvalid={!!formErrors.password}
-          />
-          {formErrors.password && (
-            <Form.Control.Feedback type="invalid">
-              This field is required.
-            </Form.Control.Feedback>
-          )}
+          <InputGroup>
+            <Form.Control
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Insira uma senha"
+              aria-label="Escolha uma senha"
+              tabIndex={0}
+              autoComplete="password"
+              {...register('password', { required: true })}
+              isInvalid={!!formErrors.password}
+              aria-describedby="showPassword-addon"
+            />
+            <InputGroup.Text
+              className={
+                !!formErrors.password
+                  ? 'formStyle__registerAddon formStyle__invalid '
+                  : 'formStyle__registerAddon'
+              }
+              aria-label="Mostrar/Esconder senha"
+              tabIndex={0}
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+              id="showPassword-addon"
+            >
+              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </InputGroup.Text>
+            {formErrors.password && (
+              <Form.Control.Feedback type="invalid">
+                This field is required.
+              </Form.Control.Feedback>
+            )}
+          </InputGroup>
         </Form.Group>
         <Form.Group className="mb-3 col-12" controlId="regConfirmPassword">
           <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Insira uma senha"
-            aria-label="Confirme sua senha"
-            tabIndex={0}
-            autoComplete="confirmPassword"
-            {...register('confirmPassword', {
-              required: true,
-              validate: value => value === watch('password'),
-            })}
-            isInvalid={!!formErrors.confirmPassword}
-          />
-          {formErrors.confirmPassword && (
-            <Form.Control.Feedback type="invalid">
-              The passwords dont match
-            </Form.Control.Feedback>
-          )}
+          <InputGroup>
+            <Form.Control
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Insira uma senha"
+              aria-label="Confirme sua senha"
+              tabIndex={0}
+              autoComplete="confirmPassword"
+              {...register('confirmPassword', {
+                required: true,
+                validate: value => value === watch('password'),
+              })}
+              isInvalid={!!formErrors.confirmPassword}
+            />
+            <InputGroup.Text
+              className={
+                !!formErrors.password
+                  ? 'formStyle__registerAddon formStyle__invalid '
+                  : 'formStyle__registerAddon'
+              }
+              aria-label="Mostrar/Esconder confirmação de senha"
+              tabIndex={0}
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+              id="showConfirmPassword-addon"
+            >
+              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </InputGroup.Text>
+            {formErrors.confirmPassword && (
+              <Form.Control.Feedback type="invalid">
+                The passwords dont match
+              </Form.Control.Feedback>
+            )}
+          </InputGroup>
         </Form.Group>
         <hr />
         <Form.Group controlId="regTerms">
           <Form.Check
             label="Aceitar os termos de uso"
-            aria-label='Aceitar os termos de uso'
+            aria-label="Aceitar os termos de uso"
             tabIndex={0}
             {...register('terms', { required: true })}
             isInvalid={!!formErrors.terms}
             feedback="You must agree before submitting."
             feedbackType="invalid"
           />
-          
         </Form.Group>
         <Button
           type="submit"
