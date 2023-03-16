@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { InputGroup } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner';
 
 //Icons
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
@@ -22,7 +23,8 @@ const Register = () => {
   const [formErrors, setFormErrors] = useState<FormRegister>({});
   const [showPassword, setShowPassword] = useState(false);
 
-  const {createAccount, loading, error, errorMessage} = useAuthentication();
+  const { createAccount, loading, errorMessage, setErrorMessage } =
+    useAuthentication();
 
   //useForm Hooks
   const {
@@ -38,13 +40,16 @@ const Register = () => {
   }, [errors]);
 
   const onSubmit = (data: FormRegister) => {
-    
-    const createAuth:CreateAuth = {
+    const createAuth: CreateAuth = {
       email: data.email!,
-      password: data.password!
-    }
-    
-    createAccount({createAuth, data});
+      password: data.password!,
+    };
+
+    createAccount({ createAuth, data });
+
+    setTimeout(() => {
+      setErrorMessage(' ');
+    }, 5000);
   };
 
   return (
@@ -126,12 +131,20 @@ const Register = () => {
             placeholder="E-mail"
             aria-label="Insira seu e-mail"
             tabIndex={0}
-            {...register('email', { required: true })}
-            isInvalid={!!formErrors.email}
+            {...register('email', {
+              required: true,
+            })}
+            isInvalid={!!formErrors.email || errorMessage.includes('E-mail')}
           />
           {formErrors.email && (
             <Form.Control.Feedback type="invalid">
-              This field is required.
+              This field is Required
+            </Form.Control.Feedback>
+          )}
+
+          {errorMessage && errorMessage.includes('E-mail') && (
+            <Form.Control.Feedback type="invalid">
+              This email is already registered.
             </Form.Control.Feedback>
           )}
         </Form.Group>
@@ -144,7 +157,11 @@ const Register = () => {
               aria-label="Escolha uma senha"
               tabIndex={0}
               autoComplete="password"
-              {...register('password', { required: true })}
+              {...register('password', {
+                required: true,
+                minLength: 6,
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+              })}
               isInvalid={!!formErrors.password}
               aria-describedby="showPassword-addon"
             />
@@ -165,7 +182,8 @@ const Register = () => {
             </InputGroup.Text>
             {formErrors.password && (
               <Form.Control.Feedback type="invalid">
-                This field is required.
+                Password must be at least 6 characters long and include at least
+                one uppercase letter, one lowercase letter, and one number.
               </Form.Control.Feedback>
             )}
           </InputGroup>
@@ -202,7 +220,7 @@ const Register = () => {
             </InputGroup.Text>
             {formErrors.confirmPassword && (
               <Form.Control.Feedback type="invalid">
-                The passwords dont match
+                The passwords do not match.
               </Form.Control.Feedback>
             )}
           </InputGroup>
@@ -225,8 +243,15 @@ const Register = () => {
           className="col-8 col-md-4 my-3"
           aria-label="Registrar-se"
           tabIndex={0}
+          disabled={loading}
         >
-          Create Account
+          {!loading ? (
+            'Create Account'
+          ) : (
+            <Spinner animation="border" size="sm" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          )}
         </Button>
       </Form>
     </div>

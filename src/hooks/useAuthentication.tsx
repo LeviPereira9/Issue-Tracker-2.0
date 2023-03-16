@@ -12,15 +12,10 @@ import {
 } from 'firebase/firestore';
 
 //Types
-import {
-  CreateAuth,
-  FormRegister,
-  Users
-} from '../types/collectionsType';
+import { CreateAuth, FormRegister, Users } from '../types/collectionsType';
 
 const useAuthentication = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const auth = getAuth();
@@ -47,8 +42,6 @@ const useAuthentication = () => {
     checkIfCancelled();
 
     setLoading(true);
-    setError(false);
-    
 
     try {
       //User Auth
@@ -68,13 +61,13 @@ const useAuthentication = () => {
 
       const userDocRef = doc(userCollectionRef, docId);
 
-      const userData:Users = {
+      const userData: Users = {
         firstName: data.firstName!,
         lastName: data.lastName!,
         department: data.department!,
         email: data.email!,
         acessLevel: 1,
-        terms: true
+        terms: true,
       };
 
       await setDoc(userDocRef, userData);
@@ -83,22 +76,15 @@ const useAuthentication = () => {
 
       return user;
     } catch (e: any) {
-      console.log(e);
+      let systemErrorMessage = 'Mensagem de erro.';
 
-      let systemErrorMessage = '';
-
-      if (e.message.includes('password')) {
-        if (e.message.includes('Password')) {
-          systemErrorMessage =
-            'A senha precisa conter pelo menos 6 caracteres.';
-        } else if (e.message.includes('email-already')) {
-          systemErrorMessage = 'E-mail já cadastrado.';
-        } else {
-          systemErrorMessage = 'Ocorreu um erro, por favor tente mais tarde.';
-        }
+      if (e.message.includes('email-already')) {
+        systemErrorMessage = 'E-mail já cadastrado.';
+      } else {
+        systemErrorMessage = 'Ocorreu um erro, por favor tente mais tarde.';
       }
 
-      setError(true);
+      setLoading(false);
       setErrorMessage(systemErrorMessage);
     }
   };
@@ -111,8 +97,8 @@ const useAuthentication = () => {
     auth,
     createAccount,
     loading,
-    error,
     errorMessage,
+    setErrorMessage
   };
 };
 
