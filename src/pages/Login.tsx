@@ -45,7 +45,7 @@ const Login = (props: Props) => {
   return (
     <div className="container d-flex p-0 formStyle">
       <div className="w-100 ">
-        <h2 className="text-center pt-4">Issue Tracker 2.0</h2>
+        <h3 className="text-center pt-4">Issue Tracker 2.0</h3>
         <Form
           className="row w-100 justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle-register"
           onSubmit={handleSubmit(onSubmit)}
