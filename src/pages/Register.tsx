@@ -75,6 +75,7 @@ const Register = () => {
         className="row justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle-register"
         onSubmit={handleSubmit(onSubmit)}
       >
+        <h3 className='text-center mb-4'>Issue Tracker 2.0</h3>
         <Form.Group className="mb-3 col-12 col-md-6" controlId="regFirstName">
           <Form.Label>First Name</Form.Label>
           <Form.Control
