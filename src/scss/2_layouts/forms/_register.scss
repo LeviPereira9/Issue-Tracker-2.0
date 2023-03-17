@@ -1,16 +1,79 @@
+@use '../../1_base/variables';
+@use '../../1_base/base.scss';
+
 .formStyle {
-  background-color: #212529;
-  color: white;
+  box-shadow: variables.$form-boxShadow;
   border-radius: 10px;
-  padding: 25px 10px 0px 10px;
 
   &__invalid {
-    border-color: #dc3545;
+    border-color: variables.$form-invalid;
   }
 
-  &__registerAddon {
-    background-color: white !important;
-    border-start-end-radius: 5px !important;
-    border-end-end-radius: 5px !important;
+  &-sideContent {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 1em;
+    background-color: variables.$form-sideContent-bg;
+    border-start-start-radius: 10px;
+    border-end-start-radius: 10px;
+
+    &__text {
+      color: variables.$form-sideContent-text;
+
+      a {
+        @extend %form-linkStyle;
+      }
+    }
+
+    &__img {
+      width: 20em;
+    }
+  }
+
+  &-register {
+    background-color: variables.$form-register-bg;
+    border-start-end-radius: 10px;
+    border-end-end-radius: 10px;
+    padding: 25px 10px 0px 10px;
+
+    //MediaQuery
+    @media (max-width: 766px) {
+      border-radius: 10px;
+    }
+
+    input:focus,
+    select:focus {
+      box-shadow: none;
+      border-color: variables.$form-input-border;
+    }
+
+    &__addon {
+      background-color: white !important;
+      border-start-end-radius: 5px !important;
+      border-end-end-radius: 5px !important;
+    }
+
+    &__button {
+      background-color: variables.$form-button-color;
+      border-color: variables.$form-button-color;
+
+      &:hover,
+      &:focus-visible {
+        box-shadow: none;
+        background-color: variables.$form-button-hover;
+        border-color: variables.$form-button-hover;
+      }
+
+      &:active {
+        background-color: variables.$form-button-active !important;
+        border-color: variables.$form-button-active !important;
+      }
+    }
+
+    &__terms,
+    &__link {
+      @extend %form-linkStyle;
+    }
   }
 }

@@ -1,0 +1,7 @@
+@use './variables';
+
+%form-linkStyle {
+  text-decoration: underline;
+  color: variables.$form-sideContent-text;
+  font-weight: bold;
+}

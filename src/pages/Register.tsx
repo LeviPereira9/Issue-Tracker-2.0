@@ -1,6 +1,9 @@
 //React
 import { useState, useEffect } from 'react';
 
+//Router-Dom
+import { Link } from 'react-router-dom';
+
 //Hooks-Form
 import { useForm } from 'react-hook-form';
 
@@ -53,13 +56,23 @@ const Register = () => {
   };
 
   return (
-    <div className="container d-flex">
-      <div className="container d-none d-md-block">
-        <h2>Create Account</h2>
-        <p>Already have a account? Log in</p>
+    <div className="container d-flex p-0 formStyle">
+      <div className="container d-none d-md-flex formStyle-sideContent">
+        <h1>Create new account</h1>
+        <p className="formStyle-sideContent__text">
+          Already a member?{'  '}
+          <Link aria-label="Ir para página de login" tabIndex={0} to={'/login'}>
+            Log in
+          </Link>
+        </p>
+        <img
+          className="formStyle-sideContent__img img-fluid"
+          src="/img/undraw_team_up_re_84ok.svg"
+          alt="Sign up"
+        />
       </div>
       <Form
-        className="row justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle"
+        className="row justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle-register"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Form.Group className="mb-3 col-12 col-md-6" controlId="regFirstName">
@@ -168,8 +181,8 @@ const Register = () => {
             <InputGroup.Text
               className={
                 !!formErrors.password
-                  ? 'formStyle__registerAddon formStyle__invalid '
-                  : 'formStyle__registerAddon'
+                  ? 'formStyle-register__addon formStyle__invalid '
+                  : 'formStyle-register__addon'
               }
               aria-label="Mostrar/Esconder senha"
               tabIndex={0}
@@ -193,7 +206,7 @@ const Register = () => {
           <InputGroup>
             <Form.Control
               type={showPassword ? 'text' : 'password'}
-              placeholder="Insira uma senha"
+              placeholder="Confirme sua senha"
               aria-label="Confirme sua senha"
               tabIndex={0}
               autoComplete="confirmPassword"
@@ -206,8 +219,8 @@ const Register = () => {
             <InputGroup.Text
               className={
                 !!formErrors.password
-                  ? 'formStyle__registerAddon formStyle__invalid '
-                  : 'formStyle__registerAddon'
+                  ? 'formStyle-register__addon formStyle__invalid '
+                  : 'formStyle-register__addon'
               }
               aria-label="Mostrar/Esconder confirmação de senha"
               tabIndex={0}
@@ -228,7 +241,20 @@ const Register = () => {
         <hr />
         <Form.Group controlId="regTerms">
           <Form.Check
-            label="Aceitar os termos de uso"
+            label={
+              <>
+                I have read and agree to the{' '}
+                <Link
+                  className="formStyle-register__terms"
+                  aria-label="Ir para os termos de uso"
+                  tabIndex={0}
+                  to="/terms"
+                  target="_blank"
+                >
+                  Terms and Conditions.
+                </Link>
+              </>
+            }
             aria-label="Aceitar os termos de uso"
             tabIndex={0}
             {...register('terms', { required: true })}
@@ -240,7 +266,7 @@ const Register = () => {
         <Button
           type="submit"
           variant="primary"
-          className="col-8 col-md-4 my-3"
+          className="col-8 col-md-4 my-3 formStyle-register__button"
           aria-label="Registrar-se"
           tabIndex={0}
           disabled={loading}
@@ -253,6 +279,20 @@ const Register = () => {
             </Spinner>
           )}
         </Button>
+        <div className="d-md-none text-center mb-5">
+          <hr />
+          <span className="mb-3">
+            Already have a account?{' '}
+            <Link
+              className='formStyle-register__link'
+              aria-label="Ir para página de login"
+              tabIndex={0}
+              to={'/login'}
+            >
+              Log in
+            </Link>
+          </span>
+        </div>
       </Form>
     </div>
   );
