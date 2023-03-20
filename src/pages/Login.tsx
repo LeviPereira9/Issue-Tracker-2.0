@@ -44,13 +44,14 @@ const Login = (props: Props) => {
 
   return (
     <div className="container d-flex p-0 formStyle">
-      <div className="w-100 ">
-        <h3 className="text-center pt-4">Issue Tracker 2.0</h3>
+      <div className="w-100">
         <Form
-          className="row w-100 justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle-register"
+          className="row w-100 justify-content-center m-auto m-md-0 formStyle-input login-form"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <Form.Group className="mb-4">
+        <h3 className="text-center pb-3">Issue Tracker 2.0</h3>
+        <hr />
+          <Form.Group className="mb-4 mt-4 col-10 col-md-8">
             <Form.Label>E-mail</Form.Label>
             <Form.Control
               type="e-mail"
@@ -66,7 +67,7 @@ const Login = (props: Props) => {
               </Form.Control.Feedback>
             )}
           </Form.Group>
-          <Form.Group className="mb-4">
+          <Form.Group className="mb-5 col-10 col-md-8">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -90,10 +91,10 @@ const Login = (props: Props) => {
               tabIndex={0}
               {...register('rememberMe')}
             />
-            <Link className="formStyle-register__link" to={'/seiLa'} aria-label="Esqueci minha senha" tabIndex={0}>Forget Password</Link>
+            <Link className="formStyle-input__link" to={'/seiLa'} aria-label="Esqueci minha senha" tabIndex={0}>Forget Password</Link>
           </Form.Group>
           <Button
-            className="col-8 col-md-4 mb-3 mb-md-5 formStyle-register__button"
+            className="col-5 col-md-4 mb-3 mb-md-5 formStyle-input__button"
             type="submit"
             aria-label="Entrar em sua conta"
             tabIndex={0}
@@ -115,7 +116,7 @@ const Login = (props: Props) => {
           </div>
         </Form>
       </div>
-      <div className="container d-none d-md-flex py-5 formStyle-sideContent login">
+      <div className="container d-none d-md-flex py-5 formStyle-sideContent login-sideContent">
         <h1>Welcome back</h1>
         <p className="formStyle-sideContent__text">
           Don't have an account?{'  '}
