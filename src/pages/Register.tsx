@@ -72,10 +72,11 @@ const Register = () => {
         />
       </div>
       <Form
-        className="row justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle-register"
+        className="row justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle-input"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h3 className='text-center mb-4'>Issue Tracker 2.0</h3>
+        <hr />
         <Form.Group className="mb-3 col-12 col-md-6" controlId="regFirstName">
           <Form.Label>First Name</Form.Label>
           <Form.Control
@@ -182,8 +183,8 @@ const Register = () => {
             <InputGroup.Text
               className={
                 !!formErrors.password
-                  ? 'formStyle-register__addon formStyle__invalid '
-                  : 'formStyle-register__addon'
+                  ? 'formStyle-input__addon formStyle__invalid '
+                  : 'formStyle-input__addon'
               }
               aria-label="Mostrar/Esconder senha"
               tabIndex={0}
@@ -220,8 +221,8 @@ const Register = () => {
             <InputGroup.Text
               className={
                 !!formErrors.password
-                  ? 'formStyle-register__addon formStyle__invalid '
-                  : 'formStyle-register__addon'
+                  ? 'formStyle-input__addon formStyle__invalid '
+                  : 'formStyle-input__addon'
               }
               aria-label="Mostrar/Esconder confirmação de senha"
               tabIndex={0}
@@ -246,7 +247,7 @@ const Register = () => {
               <>
                 I have read and agree to the{' '}
                 <Link
-                  className="formStyle-register__terms"
+                  className="formStyle-input__terms"
                   aria-label="Ir para os termos de uso"
                   tabIndex={0}
                   to="/terms"
@@ -267,7 +268,7 @@ const Register = () => {
         <Button
           type="submit"
           variant="primary"
-          className="col-8 col-md-4 my-3 formStyle-register__button"
+          className="col-8 col-md-4 my-3 formStyle-input__button"
           aria-label="Registrar-se"
           tabIndex={0}
           disabled={loading}
@@ -285,7 +286,7 @@ const Register = () => {
           <span className="mb-3">
             Already have a account?{' '}
             <Link
-              className='formStyle-register__link'
+              className='formStyle-input__link'
               aria-label="Ir para página de login"
               tabIndex={0}
               to={'/login'}
