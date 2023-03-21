@@ -12,6 +12,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { InputGroup } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
+import { useAuthentication } from '../hooks/useAuthentication';
 
 type Props = {};
 
@@ -23,6 +24,8 @@ type LogIn = {
 };
 
 const Login = (props: Props) => {
+  const { login } = useAuthentication();
+  
   const [formErrors, setFormErrors] = useState<LogIn>({});
   const [showPassword, setShowPassword] = useState(false);
 
@@ -39,7 +42,13 @@ const Login = (props: Props) => {
   }, [errors]);
 
   const onSubmit = (data: LogIn) => {
-    console.log(data);
+    const loginData = {
+      email: data.email!,
+      password: data.password!,
+      rememberMe: data.rememberMe!
+    }
+    
+    login(loginData);
   };
 
   return (

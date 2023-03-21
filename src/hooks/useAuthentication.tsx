@@ -1,9 +1,18 @@
 //React
 import { useState, useEffect } from 'react';
 
+//Router-Dom
 //Firebase
 import { db } from '../firebase/config';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import {
   CollectionReference,
   doc,
@@ -14,10 +23,11 @@ import {
 //Types
 import { CreateAuth, FormRegister, Users } from '../types/collectionsType';
 
+
 const useAuthentication = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
+  
   const auth = getAuth();
 
   //Memory Leak?
@@ -51,7 +61,7 @@ const useAuthentication = () => {
         createAuth.password,
       );
 
-      //User Collection
+      //User Ref Collection
       const userCollectionRef: CollectionReference<Users> = collection(
         db,
         'users',
@@ -61,18 +71,25 @@ const useAuthentication = () => {
 
       const userDocRef = doc(userCollectionRef, docId);
 
+      //User Collection
       const userData: Users = {
         firstName: data.firstName!,
         lastName: data.lastName!,
         department: data.department!,
         email: data.email!,
         acessLevel: 1,
-        terms: true,
+        terms: data.terms!,
       };
 
       await setDoc(userDocRef, userData);
 
-      setLoading(false);
+      //Auto Login
+      const loginAuto: Login = {
+        email: data.email!,
+        password: data.password!,
+      };
+
+      login(loginAuto);
 
       return user;
     } catch (e: any) {
@@ -89,6 +106,50 @@ const useAuthentication = () => {
     }
   };
 
+  type Login = {
+    email: string;
+    password: string;
+    rememberMe?: boolean;
+  };
+
+  const login = async (data: Login) => {
+    checkIfCancelled();
+    setLoading(true);
+    
+
+    try {
+      await setPersistence(
+        auth,
+        data.rememberMe ? browserLocalPersistence : browserSessionPersistence,
+      );
+      try {
+        await signInWithEmailAndPassword(auth, data.email, data.password);
+        setLoading(false);
+        console.log("logou");
+        console.log(auth.currentUser?.uid);
+      } catch (error: any) {
+        let systemErrorMessage;
+
+        if (error.message.includes('Password')) {
+          systemErrorMessage =
+            'A senha precisa conter pelo menos 6 caracteres.';
+        } else if (error.message.includes('email-already')) {
+          systemErrorMessage = 'E-mail já cadastrado.';
+        } else {
+          systemErrorMessage = 'Ocorreu um erro, por favor tente mais tarde.';
+        }
+
+        setLoading(false);
+        setErrorMessage(systemErrorMessage);
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('Occoreu um erro, por favor tente mais tarde.');
+    }
+
+   
+  };
+
   useEffect(() => {
     return () => setCancelled(true);
   }, []);
@@ -96,9 +157,10 @@ const useAuthentication = () => {
   return {
     auth,
     createAccount,
+    login,
     loading,
     errorMessage,
-    setErrorMessage
+    setErrorMessage,
   };
 };
 
