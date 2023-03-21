@@ -74,8 +74,9 @@ const Register = () => {
       <Form
         className="row justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle-input"
         onSubmit={handleSubmit(onSubmit)}
+        noValidate
       >
-        <h3 className='text-center mb-4'>Issue Tracker 2.0</h3>
+        <h3 className="text-center mb-4">Issue Tracker 2.0</h3>
         <hr />
         <Form.Group className="mb-3 col-12 col-md-6" controlId="regFirstName">
           <Form.Label>First Name</Form.Label>
@@ -148,12 +149,14 @@ const Register = () => {
             tabIndex={0}
             {...register('email', {
               required: true,
+              pattern:
+                /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
             })}
             isInvalid={!!formErrors.email || errorMessage.includes('E-mail')}
           />
           {formErrors.email && (
             <Form.Control.Feedback type="invalid">
-              This field is Required
+              This field must be filled with a valid email.
             </Form.Control.Feedback>
           )}
 
@@ -286,7 +289,7 @@ const Register = () => {
           <span className="mb-3">
             Already have a account?{' '}
             <Link
-              className='formStyle-input__link'
+              className="formStyle-input__link"
               aria-label="Ir para página de login"
               tabIndex={0}
               to={'/login'}
