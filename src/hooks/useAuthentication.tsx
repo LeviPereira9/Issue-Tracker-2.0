@@ -11,7 +11,6 @@ import {
   setPersistence,
   browserLocalPersistence,
   browserSessionPersistence,
-  onAuthStateChanged,
 } from 'firebase/auth';
 import {
   CollectionReference,

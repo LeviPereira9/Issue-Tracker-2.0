@@ -1,4 +1,3 @@
-import { DocumentSnapshot } from 'firebase/firestore';
 import { useContext, createContext } from 'react';
 import { Users } from '../types/collectionsType';
 
