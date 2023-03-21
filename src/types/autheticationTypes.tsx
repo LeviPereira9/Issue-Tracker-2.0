@@ -20,11 +20,17 @@ type FormRegister = {
   terms?: boolean;
 };
 
-
 //CreateAccount
 type CreateAuth = {
   email: string;
   password: string;
 };
 
-export type { FormRegister, CreateAuth, Users };
+//Formulário de Login
+type LogIn = {
+  email?: string;
+  password?: string;
+  rememberMe?: boolean;
+};
+
+export type { FormRegister, CreateAuth, Users, LogIn };

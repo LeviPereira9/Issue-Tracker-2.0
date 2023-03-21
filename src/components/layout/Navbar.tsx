@@ -1,9 +1,24 @@
-type Props = {}
+import { useAuthentication } from '../../hooks/useAuthentication';
+type Props = {};
 
 const Navbar = (props: Props) => {
-  return (
-    <div>Navbar</div>
-  )
-}
+  const { logout } = useAuthentication();
 
-export default Navbar
+  const handleLogout = () => {
+    logout();
+  };
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          handleLogout();
+        }}
+      >
+        Log out
+      </button>
+    </div>
+  );
+};
+
+export default Navbar;

@@ -1,5 +1,5 @@
 import { useContext, createContext } from 'react';
-import { Users } from '../types/collectionsType';
+import { Users } from '../types/autheticationTypes';
 
 const AuthContext = createContext<Users>({} as Users);
 

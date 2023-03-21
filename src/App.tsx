@@ -27,7 +27,7 @@ import Register from './pages/Register';
 
 //CSS
 import './scss/app.scss';
-import { Users } from './types/collectionsType';
+import { Users } from './types/autheticationTypes';
 
 function App() {
   const [userData, setUserData] = useState<Users>({} as Users);
@@ -79,6 +79,7 @@ function App() {
       }
     };
 
+    
   }, [user]);
   
   return (

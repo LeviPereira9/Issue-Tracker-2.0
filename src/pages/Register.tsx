@@ -17,7 +17,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 //Types
-import { CreateAuth, FormRegister } from '../types/collectionsType';
+import { CreateAuth, FormRegister } from '../types/autheticationTypes';
 
 //Hooks
 import { useAuthentication } from '../hooks/useAuthentication';

@@ -15,8 +15,6 @@
     justify-content: center;
     row-gap: 1em;
     background-color: variables.$form-sideContent-bg;
-    border-start-start-radius: 10px;
-    border-end-start-radius: 10px;
 
     &__text {
       color: variables.$form-sideContent-text;
@@ -33,13 +31,15 @@
 
   &-input {
     background-color: variables.$form-register-bg;
-    border-start-end-radius: 10px;
-    border-end-end-radius: 10px;
     padding: 25px 10px 0px 10px;
+
+    label {
+      color: #555555;
+    }
 
     //MediaQuery
     @media (max-width: 766px) {
-      border-radius: 10px;
+      border-radius: 10px !important;
     }
 
     h3 {
@@ -83,22 +83,27 @@
     &__terms,
     &__link {
       @extend %form-linkStyle;
+
+      &:hover {
+        color: none;
+      }
     }
   }
 
-  //Only in log in.
-
+  //Only in register
+  .register-sideContent,
   .login-form {
-    border-start-start-radius: 10px !important;
-    border-end-start-radius: 10px !important;
-    border-start-end-radius: 0px !important;
-    border-end-end-radius: 0px !important;
+    border-start-start-radius: 10px;
+    border-end-start-radius: 10px;
+    border-start-end-radius: 0px;
+    border-end-end-radius: 0px;
   }
 
+  .register-form,
   .login-sideContent {
-    border-start-start-radius: 0px !important;
-    border-end-start-radius: 0px !important;
-    border-start-end-radius: 10px !important;
-    border-end-end-radius: 10px !important;
+    border-start-start-radius: 0px;
+    border-end-start-radius: 0px;
+    border-start-end-radius: 10px;
+    border-end-end-radius: 10px;
   }
 }
