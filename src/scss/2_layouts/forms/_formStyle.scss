@@ -1,6 +1,20 @@
 @use '../../1_base/variables';
 @use '../../1_base/base.scss';
 
+.form-group {
+  position: relative;
+}
+
+.invalid-feedback {
+  position: absolute;
+  top: 95%;
+  width: 100%;
+}
+
+.link__invalid {
+  color: variables.$form-invalid !important;
+}
+
 .formStyle {
   box-shadow: variables.$form-boxShadow;
   border-radius: 10px;

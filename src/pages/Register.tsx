@@ -78,7 +78,7 @@ const Register = () => {
       >
         <h3 className="text-center mb-4">Issue Tracker 2.0</h3>
         <hr />
-        <Form.Group className="mb-3 col-12 col-md-6" controlId="regFirstName">
+        <Form.Group className="mb-3 col-12 col-md-6 form-group" controlId="regFirstName">
           <Form.Label>First Name</Form.Label>
           <Form.Control
             type="text"
@@ -94,7 +94,7 @@ const Register = () => {
             </Form.Control.Feedback>
           )}
         </Form.Group>
-        <Form.Group className="mb-3 col-12 col-md-6" controlId="regLastName">
+        <Form.Group className="mb-3 col-12 col-md-6 form-group" controlId="regLastName">
           <Form.Label>Last Name</Form.Label>
           <Form.Control
             type="text"
@@ -110,7 +110,7 @@ const Register = () => {
             </Form.Control.Feedback>
           )}
         </Form.Group>
-        <Form.Group className="mb-3 col-12" controlId="regDepart">
+        <Form.Group className="mb-3 col-12 form-group" controlId="regDepart">
           <Form.Label>Department</Form.Label>
           <Form.Select
             aria-label="Selecione seu setor de trabalho"
@@ -140,7 +140,7 @@ const Register = () => {
             </Form.Control.Feedback>
           )}
         </Form.Group>
-        <Form.Group className="mb-3 col-12" controlId="regEmail">
+        <Form.Group className="mb-3 col-12 form-group" controlId="regEmail">
           <Form.Label>E-mail</Form.Label>
           <Form.Control
             type="email"
@@ -166,7 +166,7 @@ const Register = () => {
             </Form.Control.Feedback>
           )}
         </Form.Group>
-        <Form.Group className="mb-3 col-12" controlId="regPassword">
+        <Form.Group className={`mb-3 col-12 form-group ${formErrors.password ? "mb-5" : "mb-0"}`} controlId="regPassword">
           <Form.Label>Password</Form.Label>
           <InputGroup>
             <Form.Control
@@ -206,7 +206,7 @@ const Register = () => {
             )}
           </InputGroup>
         </Form.Group>
-        <Form.Group className="mb-3 col-12" controlId="regConfirmPassword">
+        <Form.Group className="mb-3 col-12 mb-4 form-group" controlId="regConfirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <InputGroup>
             <Form.Control
@@ -244,13 +244,13 @@ const Register = () => {
           </InputGroup>
         </Form.Group>
         <hr />
-        <Form.Group controlId="regTerms">
+        <Form.Group className='form-group' controlId="regTerms">
           <Form.Check
             label={
               <>
                 I have read and agree to the{' '}
                 <Link
-                  className="formStyle-input__terms"
+                  className={!formErrors.password ? "formStyle-input__terms" : "formStyle-input__terms link__invalid"}
                   aria-label="Ir para os termos de uso"
                   tabIndex={0}
                   to="/terms"
@@ -271,7 +271,7 @@ const Register = () => {
         <Button
           type="submit"
           variant="primary"
-          className="col-8 col-md-4 my-3 formStyle-input__button"
+          className="col-8 col-md-4 mt-5 mb-3 formStyle-input__button"
           aria-label="Registrar-se"
           tabIndex={0}
           disabled={loading}
