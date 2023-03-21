@@ -63,7 +63,7 @@ const Login = () => {
         >
           <h3 className="text-center pb-3">Issue Tracker 2.0</h3>
           <hr />
-          <Form.Group className="mb-4 mt-4 col-10 col-md-8">
+          <Form.Group className="mb-4 mt-4 col-10 col-md-8 form-group">
             <Form.Label>E-mail</Form.Label>
             <Form.Control
               type="email"
@@ -88,7 +88,7 @@ const Login = () => {
               </Form.Control.Feedback>
             )}
           </Form.Group>
-          <Form.Group className="mb-5 col-10 col-md-8">
+          <Form.Group className="mb-5 col-10 col-md-8 form-group">
             <Form.Label>Password</Form.Label>
             <InputGroup>
               <Form.Control
