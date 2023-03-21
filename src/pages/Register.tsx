@@ -56,8 +56,8 @@ const Register = () => {
   };
 
   return (
-    <div className="container d-flex p-0 formStyle">
-      <div className="container d-none d-md-flex formStyle-sideContent">
+    <div className="container d-flex p-0 formStyle mb-5">
+      <div className="container d-none d-md-flex formStyle-sideContent register-sideContent">
         <h1>Create new account</h1>
         <p className="formStyle-sideContent__text">
           Already a member?{'  '}
@@ -72,7 +72,7 @@ const Register = () => {
         />
       </div>
       <Form
-        className="row justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle-input"
+        className="row justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle-input register-form"
         onSubmit={handleSubmit(onSubmit)}
         noValidate
       >
@@ -271,7 +271,7 @@ const Register = () => {
         <Button
           type="submit"
           variant="primary"
-          className="col-8 col-md-4 mt-5 mb-3 formStyle-input__button"
+          className="col-8 col-md-4 mt-4 mb-3 formStyle-input__button"
           aria-label="Registrar-se"
           tabIndex={0}
           disabled={loading}
