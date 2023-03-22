@@ -21,6 +21,7 @@ import { CreateAuth, FormRegister } from '../types/autheticationTypes';
 
 //Hooks
 import { useAuthentication } from '../hooks/useAuthentication';
+import SideContent from '../components/shared/SideContent';
 
 const Register = () => {
   const [formErrors, setFormErrors] = useState<FormRegister>({});
@@ -57,20 +58,15 @@ const Register = () => {
 
   return (
     <div className="container d-flex p-0 formStyle mb-5">
-      <div className="container d-none d-md-flex formStyle-sideContent register-sideContent">
-        <h1>Create new account</h1>
-        <p className="formStyle-sideContent__text">
-          Already a member?{'  '}
-          <Link aria-label="Ir para página de login" tabIndex={0} to={'/login'}>
-            Log in
-          </Link>
-        </p>
-        <img
-          className="formStyle-sideContent__img img-fluid"
-          src="/img/undraw_team_up_re_84ok.svg"
-          alt="Sign up"
-        />
-      </div>
+      <SideContent
+        className="register-sideContent"
+        title="Create new account"
+        text="Already a member?"
+        toRedirect="/login"
+        toText="Log in"
+        label='Ir para página de login'
+        imgUrl="undraw_team_up_re_84ok.svg"
+      />
       <Form
         className="row justify-content-center col-12 col-md-6 m-auto m-md-0 formStyle-input register-form"
         onSubmit={handleSubmit(onSubmit)}
@@ -78,7 +74,10 @@ const Register = () => {
       >
         <h3 className="text-center mb-4">Issue Tracker 2.0</h3>
         <hr />
-        <Form.Group className="mb-3 col-12 col-md-6 form-group" controlId="regFirstName">
+        <Form.Group
+          className="mb-3 col-12 col-md-6 form-group"
+          controlId="regFirstName"
+        >
           <Form.Label>First Name</Form.Label>
           <Form.Control
             type="text"
@@ -94,7 +93,10 @@ const Register = () => {
             </Form.Control.Feedback>
           )}
         </Form.Group>
-        <Form.Group className="mb-3 col-12 col-md-6 form-group" controlId="regLastName">
+        <Form.Group
+          className="mb-3 col-12 col-md-6 form-group"
+          controlId="regLastName"
+        >
           <Form.Label>Last Name</Form.Label>
           <Form.Control
             type="text"
@@ -166,7 +168,12 @@ const Register = () => {
             </Form.Control.Feedback>
           )}
         </Form.Group>
-        <Form.Group className={`mb-3 col-12 form-group ${formErrors.password ? "mb-5" : "mb-0"}`} controlId="regPassword">
+        <Form.Group
+          className={`mb-3 col-12 form-group ${
+            formErrors.password ? 'mb-5' : 'mb-0'
+          }`}
+          controlId="regPassword"
+        >
           <Form.Label>Password</Form.Label>
           <InputGroup>
             <Form.Control
@@ -206,7 +213,10 @@ const Register = () => {
             )}
           </InputGroup>
         </Form.Group>
-        <Form.Group className="mb-3 col-12 mb-4 form-group" controlId="regConfirmPassword">
+        <Form.Group
+          className="mb-3 col-12 mb-4 form-group"
+          controlId="regConfirmPassword"
+        >
           <Form.Label>Confirm Password</Form.Label>
           <InputGroup>
             <Form.Control
@@ -244,13 +254,17 @@ const Register = () => {
           </InputGroup>
         </Form.Group>
         <hr />
-        <Form.Group className='form-group' controlId="regTerms">
+        <Form.Group className="form-group" controlId="regTerms">
           <Form.Check
             label={
               <>
                 I have read and agree to the{' '}
                 <Link
-                  className={!formErrors.password ? "formStyle-input__terms" : "formStyle-input__terms link__invalid"}
+                  className={
+                    !formErrors.password
+                      ? 'formStyle-input__terms'
+                      : 'formStyle-input__terms link__invalid'
+                  }
                   aria-label="Ir para os termos de uso"
                   tabIndex={0}
                   to="/terms"

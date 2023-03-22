@@ -4,7 +4,6 @@ import {
   collection,
   CollectionReference,
   doc,
-  DocumentSnapshot,
   getDoc,
 } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
