@@ -1,0 +1,27 @@
+@use '../1_base/variables';
+@import '../1_base/base.scss';
+
+.navbar {
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  &__link {
+  }
+
+  &__krl {
+  }
+
+  &-button {
+    border-radius: 10px;
+    color: white;
+    background-color: variables.$form-button-color;
+
+    &:hover {
+      background-color: variables.$form-button-hover;
+    }
+
+    &:active {
+      background-color: variables.$form-button-active;
+    }
+  }
+}

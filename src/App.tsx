@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 //Layout
-import Navbar from './components/layout/Navbar';
+import NavBar from './components/layout/Navbar';
 import { AuthProvider } from './contexts/AuthContext';
 import { db } from './firebase/config';
 import { useAuthentication } from './hooks/useAuthentication';
@@ -85,7 +85,7 @@ function App() {
     <div>
       <AuthProvider value={userData}>
         <BrowserRouter>
-          <Navbar />
+          <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={!logged ? <Register /> : <Navigate to="/"/>} />
