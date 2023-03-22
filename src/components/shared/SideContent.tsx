@@ -1,15 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-type Props = {
-  className: string;
-  title: string;
-  text: string;
-  toRedirect: string;
-  toText: string;
-  label: string;
-  imgUrl: string;
-};
+import { SideContentProps } from '../../types/autheticationTypes';
 
 const SideContent = ({
   className,
@@ -19,7 +11,7 @@ const SideContent = ({
   toText,
   label,
   imgUrl,
-}: Props) => {
+}: SideContentProps) => {
   return (
     <div
       className={`container d-none d-md-flex formStyle-sideContent ${className}`}

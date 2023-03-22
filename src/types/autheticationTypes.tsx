@@ -33,4 +33,15 @@ type LogIn = {
   rememberMe?: boolean;
 };
 
-export type { FormRegister, CreateAuth, Users, LogIn };
+//SideContent
+type SideContentProps = {
+  className: string;
+  title: string;
+  text: string;
+  toRedirect: string;
+  toText: string;
+  label: string;
+  imgUrl: string;
+};
+
+export type { FormRegister, CreateAuth, Users, LogIn, SideContentProps };
