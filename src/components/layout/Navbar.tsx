@@ -73,7 +73,7 @@ const NavBar = (props: Props) => {
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <Nav className="d-none d-lg-flex navbar__krl">
+      <Nav className="d-none d-lg-flex">
         <Nav.Link as={NavLink} to="/register" className="navbar__link me-2">
           Sign Up
         </Nav.Link>
