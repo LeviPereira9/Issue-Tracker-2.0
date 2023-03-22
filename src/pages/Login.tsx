@@ -20,6 +20,7 @@ import SendForget from '../components/layout/SendForget';
 
 //Types
 import { LogIn } from '../types/autheticationTypes';
+import SideContent from '../components/shared/SideContent';
 
 const Login = () => {
   const { login, loading, errorMessage, setErrorMessage } = useAuthentication();
@@ -180,24 +181,15 @@ const Login = () => {
         </Form>
         <SendForget show={show} setShow={setShow} />
       </div>
-      <div className="container d-none d-md-flex py-5 formStyle-sideContent login-sideContent">
-        <h1>Welcome back</h1>
-        <p className="formStyle-sideContent__text">
-          Don't have an account?{'  '}
-          <Link
-            aria-label="Ir para página de login"
-            tabIndex={0}
-            to={'/register'}
-          >
-            Sign up
-          </Link>
-        </p>
-        <img
-          className="formStyle-sideContent__img img-fluid"
-          src="/img/undraw_appreciation_ti90.svg"
-          alt="Sign up"
-        />
-      </div>
+      <SideContent
+        className="py-5 login-sideContent"
+        title="Welcome back"
+        text="Don't have an account?"
+        toRedirect="/register"
+        toText="Sign up"
+        label="Ir para páginade login"
+        imgUrl="undraw_appreciation_ti90.svg"
+      />
     </div>
   );
 };
