@@ -2,13 +2,33 @@
 @import '../1_base/base.scss';
 
 .navbar {
-  align-items: flex-start;
-  flex-wrap: wrap;
+  .nav-item .nav-link::after {
+    display: none !important;
+  }
+
+  &__icon {
+    color: variables.$form-button-color;
+  }
+
+  &__userDropdown {
+    position: relative;
+
+    .dropdown-menu {
+      position: absolute;
+      min-width: 100px !important;
+      top: 100% !important;
+      left: -50% !important;
+
+      @media (max-width: 768px) {
+        left: -100% !important;
+      }
+    }
+  }
 
   &__link {
   }
 
-  &-button {
+  &__button {
     border-radius: 10px;
     color: white;
     background-color: variables.$form-button-color;
@@ -19,6 +39,20 @@
 
     &:active {
       background-color: variables.$form-button-active;
+    }
+  }
+}
+
+//Menu Canvas
+@media (max-width: 768px) {
+  .offcanvas {
+    max-width: 230px;
+
+    .dropdown-menu {
+      text-align: center;
+    }
+    .nav-link::after {
+      display: none !important;
     }
   }
 }
