@@ -8,9 +8,8 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-//Icons
-import { MdAdminPanelSettings } from 'react-icons/md';
-import { BsPersonCircle } from 'react-icons/bs';
+//Components
+import NavbarAuth from './NavbarAuth';
 
 type Props = {};
 
@@ -21,85 +20,7 @@ const NAVBAR_CLASS = {
   userDropdown: 'navbar__userDropdown ',
 };
 
-function renderAdminAuth() {
-  if (true) {
-    return (
-      <>
-        <MdAdminPanelSettings
-          className={`${NAVBAR_CLASS.icon} me-4`}
-          size={'2.7em'}
-        />
-      </>
-    );
-  }
-}
 
-function renderUserAuth() {
-  if (!false) {
-    return (
-      <>
-        {renderAdminAuth()}
-        <NavDropdown
-          active={true}
-          title={
-            <>
-              <BsPersonCircle className={`${NAVBAR_CLASS.icon}`} size={'2em'} />
-            </>
-          }
-          id="collasible-nav-dropdown"
-          className={`${
-            NAVBAR_CLASS.link + NAVBAR_CLASS.userDropdown
-          } me-4`}
-        >
-          <NavDropdown.Item
-            as={NavLink}
-            to="/perfil"
-            className={`${NAVBAR_CLASS.link}`}
-          >
-            Profile
-          </NavDropdown.Item>
-          <NavDropdown.Item
-            as={NavLink}
-            to="/settings"
-            className={`${NAVBAR_CLASS.link}`}
-          >
-            Settings
-          </NavDropdown.Item>
-          <NavDropdown.Item
-            as={NavLink}
-            to="/help"
-            className={`${NAVBAR_CLASS.link}`}
-          >
-            Help
-          </NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item className={`${NAVBAR_CLASS.link}`}>
-            Sign Out
-          </NavDropdown.Item>
-        </NavDropdown>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Nav.Link
-          as={NavLink}
-          to="/register"
-          className={`${NAVBAR_CLASS.link} me-2`}
-        >
-          Sign Up
-        </Nav.Link>
-        <Nav.Link
-          as={NavLink}
-          to="/login"
-          className={`${NAVBAR_CLASS.button} px-3 me-3`}
-        >
-          Sign In
-        </Nav.Link>
-      </>
-    );
-  }
-}
 
 const NavBar = (props: Props) => {
   return (
@@ -181,7 +102,7 @@ const NavBar = (props: Props) => {
             </Offcanvas.Body>
           </Navbar.Offcanvas>
           <Nav className="flex-row align-items-center">
-            {renderUserAuth()}
+            <NavbarAuth logged={true} NAVBAR_CLASS={NAVBAR_CLASS} acessLevel={2} />
             <Navbar.Toggle aria-controls="offcanvasNavbar-expand-md" />
           </Nav>
         </Container>
