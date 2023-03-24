@@ -6,3 +6,29 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+%button-style {
+  background-color: variables.$form-button-color;
+  border-color: variables.$form-button-color;
+  color: white;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: none;
+    background-color: variables.$form-button-hover !important;
+    border-color: variables.$form-button-hover !important;
+    color: white;
+  }
+
+  &:active {
+    background-color: variables.$form-button-active !important;
+    border-color: variables.$form-button-active !important;
+    color: white;
+  }
+
+  &:disabled {
+    background-color: variables.$form-button-active !important;
+    border-color: variables.$form-button-active !important;
+    color: white;
+  }
+}

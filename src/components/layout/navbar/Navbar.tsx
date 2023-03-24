@@ -8,27 +8,32 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
+//icons
+import { MdScreenSearchDesktop } from 'react-icons/md';
+import { FiMenu } from 'react-icons/fi';
+
 //Components
 import NavbarAuth from './NavbarAuth';
 
-type Props = {};
+//Types
+import { NavbarClassProps } from '../../../types/navbarTypes';
 
-const NAVBAR_CLASS = {
+const NAVBAR_CLASS: NavbarClassProps = {
   link: 'navbar__link ',
   icon: 'navbar__icon ',
   button: 'navbar__button ',
   userDropdown: 'navbar__userDropdown ',
 };
 
-
-
-const NavBar = (props: Props) => {
+const NavBar = () => {
   return (
     <>
-      <Navbar bg="light" expand="md" className="mb-3">
+      <Navbar expand="md" className="mb-3">
         <Container fluid>
           <Navbar.Brand as={NavLink} to="/">
-            Track Issue 2.0
+            Track{' '}
+            <MdScreenSearchDesktop className={NAVBAR_CLASS.icon} size={'2em'} />{' '}
+            Issue
           </Navbar.Brand>
           <Navbar.Offcanvas
             id="offcanvasNavbar-expand-md"
@@ -37,7 +42,7 @@ const NavBar = (props: Props) => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id="offcanvasNavbarLabel-expand-md">
-                Offcanvas
+                Menu
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
@@ -45,6 +50,7 @@ const NavBar = (props: Props) => {
                 <Nav.Link
                   as={NavLink}
                   to="/"
+                  end
                   className={`${NAVBAR_CLASS.link}`}
                 >
                   Home
@@ -102,15 +108,18 @@ const NavBar = (props: Props) => {
             </Offcanvas.Body>
           </Navbar.Offcanvas>
           <Nav className="flex-row align-items-center">
-            <NavbarAuth logged={true} NAVBAR_CLASS={NAVBAR_CLASS} acessLevel={2} />
-            <Navbar.Toggle aria-controls="offcanvasNavbar-expand-md" />
+            <NavbarAuth NAVBAR_CLASS={NAVBAR_CLASS} />
+            <Navbar.Toggle
+              as={FiMenu}
+              className="p-0"
+              size={'2em'}
+              aria-controls="offcanvasNavbar-expand-md"
+            />
           </Nav>
         </Container>
       </Navbar>
     </>
   );
 };
-
-// eslint-disable-next-line no-lone-blocks
 
 export default NavBar;

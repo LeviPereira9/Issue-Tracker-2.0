@@ -92,6 +92,11 @@
         background-color: variables.$form-button-active !important;
         border-color: variables.$form-button-active !important;
       }
+
+      &:disabled {
+        background-color: variables.$form-button-active !important;
+        border-color: variables.$form-button-active !important;
+      }
     }
 
     &__terms,

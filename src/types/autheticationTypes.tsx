@@ -44,4 +44,28 @@ type SideContentProps = {
   imgUrl: string;
 };
 
-export type { FormRegister, CreateAuth, Users, LogIn, SideContentProps };
+//Context Props
+//Context - AuthData
+type AuthDataContextProps = {
+  userData: Users;
+  logged: boolean;
+  loading: boolean;
+};
+
+//Provider - AuthData
+type AuthDataProviderProps = {
+  children: React.ReactNode;
+  userData: Users;
+  logged: boolean;
+  loading: boolean;
+};
+
+export type {
+  FormRegister,
+  CreateAuth,
+  Users,
+  LogIn,
+  SideContentProps,
+  AuthDataContextProps,
+  AuthDataProviderProps,
+};

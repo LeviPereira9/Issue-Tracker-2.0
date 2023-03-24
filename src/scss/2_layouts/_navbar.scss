@@ -1,18 +1,57 @@
 @use '../1_base/variables';
 @import '../1_base/base.scss';
 
+//Custom Bootstrap === Classes do Bootstrap.
+
 .navbar {
+  background-color: white;
+  border-bottom: 1px solid #ccc;
+
+  //Custom Bootstrap
   .nav-item .nav-link::after {
     display: none !important;
+  }
+
+  &-toggler {
+    cursor: pointer;
+    border: none !important;
+    color: variables.$navbar-toggler-color;
+  }
+  //End Custom Bootstrap
+
+  &-brand {
+    font-family: variables.$navbar-brand-font;
+    padding-right: 16px;
+    border-right: 1px solid #ccc;
+
+    color: variables.$form-button-color;
+    &:hover {
+      color: variables.$form-button-color;
+    }
+    &:active {
+      color: variables.$form-button-color;
+    }
   }
 
   &__icon {
     color: variables.$form-button-color;
   }
 
+  &__link {
+    font-family: variables.$navbar-link-font;
+    font-weight: bold;
+  }
+
+  &__button {
+    @extend %button-style;
+    color: white !important;
+    border-radius: 10px;
+  }
+
   &__userDropdown {
     position: relative;
 
+    //Custom BootStrap
     .dropdown-menu {
       position: absolute;
       min-width: 100px !important;
@@ -23,27 +62,12 @@
         left: -100% !important;
       }
     }
-  }
 
-  &__link {
-  }
-
-  &__button {
-    border-radius: 10px;
-    color: white;
-    background-color: variables.$form-button-color;
-
-    &:hover {
-      background-color: variables.$form-button-hover;
-    }
-
-    &:active {
-      background-color: variables.$form-button-active;
-    }
+    //End Custom BootStrap
   }
 }
 
-//Menu Canvas
+//Menu Canvas - Custom Bootstrap
 @media (max-width: 768px) {
   .offcanvas {
     max-width: 230px;

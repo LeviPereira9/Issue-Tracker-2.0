@@ -1,4 +1,13 @@
+//============================================================
+//Colors
+//============================================================
+$color-primary: #6c63ff;
+$color-primary-light: #5950ff;
+$color-primary-dark: #4d46d1;
+
+//============================================================
 //Forms
+//============================================================
 $form-invalid: #dc3545;
 
 //Register
@@ -10,7 +19,14 @@ $form-sideContent-text: #333;
 
 //Register
 $form-register-bg: white;
-$form-input-border: #6c63ff;
-$form-button-color: #6c63ff;
-$form-button-hover: #5950ff;
-$form-button-active: #4d46d1;
+$form-input-border: $color-primary;
+$form-button-color: $color-primary;
+$form-button-hover: $color-primary-light;
+$form-button-active: $color-primary-dark;
+
+//============================================================
+//NavBar
+//============================================================
+$navbar-brand-font: 'Oleo Script', cursive;
+$navbar-link-font: 'Roboto', sans-serif;
+$navbar-toggler-color: #686868;
