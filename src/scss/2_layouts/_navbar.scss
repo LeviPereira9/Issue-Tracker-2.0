@@ -5,7 +5,7 @@
 
 .navbar {
   background-color: white;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid variables.$global-border-color;
 
   //Custom Bootstrap
   .nav-item .nav-link::after {
@@ -22,7 +22,7 @@
   &-brand {
     font-family: variables.$navbar-brand-font;
     padding-right: 16px;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid variables.$global-border-color;
 
     color: variables.$form-button-color;
     &:hover {

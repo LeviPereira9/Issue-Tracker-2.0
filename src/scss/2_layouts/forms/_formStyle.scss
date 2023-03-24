@@ -48,7 +48,7 @@
     padding: 25px 10px 0px 10px;
 
     label {
-      color: #555555;
+      color: variables.$global-subText-color;
     }
 
     //MediaQuery
@@ -57,7 +57,7 @@
     }
 
     h3 {
-      color: #555555;
+      color: variables.$global-subText-color;
     }
 
     input:focus,
