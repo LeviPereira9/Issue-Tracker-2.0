@@ -1,11 +1,20 @@
 //User Collection
 type Users = {
+  docId?:string
   firstName: string;
   lastName: string;
   department: string;
   email: string;
   acessLevel: number;
   terms: boolean;
+  notifications: NotificationsProps[]
+};
+
+type NotificationsProps = {
+  id:string
+  read: boolean;
+  from: string;
+  subject: string;
 };
 
 //Formulário de Registro
@@ -68,4 +77,5 @@ export type {
   SideContentProps,
   AuthDataContextProps,
   AuthDataProviderProps,
+  NotificationsProps
 };

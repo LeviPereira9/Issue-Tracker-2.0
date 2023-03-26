@@ -19,10 +19,16 @@ import {
   doc,
   collection,
   setDoc,
+  updateDoc,
 } from 'firebase/firestore';
 
 //Types
-import { CreateAuth, FormRegister, Users } from '../types/autheticationTypes';
+import {
+  CreateAuth,
+  FormRegister,
+  NotificationsProps,
+  Users,
+} from '../types/autheticationTypes';
 
 const useAuthentication = () => {
   const [loading, setLoading] = useState(false);
@@ -83,6 +89,7 @@ const useAuthentication = () => {
         email: data.email!,
         acessLevel: 1,
         terms: data.terms!,
+        notifications: []
       };
 
       await setDoc(userDocRef, userData);
@@ -154,6 +161,38 @@ const useAuthentication = () => {
     signOut(auth);
   };
 
+  const updateNotification = async (
+    notification: NotificationsProps,
+    userData: Users,
+  ) => {
+    //User Ref Collection
+    const userCollectionRef: CollectionReference<Users> = collection(
+      db,
+      'users',
+    ) as CollectionReference<Users>;
+
+    const userDocRef = doc(userCollectionRef, auth.currentUser?.uid);
+
+    // Ache o id conrrespondente da notificação.
+    const notificationIndex = userData.notifications!.findIndex(
+      n => n.id === notification.id,
+    );
+
+    if (notificationIndex !== -1) {
+      // Atualiza a notificação pelo id que achamos.
+      const updatedNotifications = [...userData.notifications!];
+      updatedNotifications[notificationIndex] = {
+        ...updatedNotifications[notificationIndex],
+        read: true,
+      };
+
+      // Atualiza lá na base de dados.
+      await updateDoc(userDocRef, {
+        notifications: updatedNotifications,
+      });
+    }
+  };
+
   useEffect(() => {
     return () => setCancelled(true);
   }, []);
@@ -166,6 +205,7 @@ const useAuthentication = () => {
     errorMessage,
     setErrorMessage,
     logout,
+    updateNotification,
   };
 };
 

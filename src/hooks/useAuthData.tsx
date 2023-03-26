@@ -49,7 +49,6 @@ const useAuthData = () => {
           'users',
         ) as CollectionReference<Users>;
 
-        console.log(user);
         try {
           const userDataQuery = doc(userCollectionRef, user);
 
@@ -72,6 +71,7 @@ const useAuthData = () => {
       }
     };
 
+    //getUserData();
   }, [user]);
 
   return { userData, loading, logged, setLogged };
