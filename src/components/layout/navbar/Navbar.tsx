@@ -21,8 +21,10 @@ import { NavbarClassProps } from '../../../types/navbarTypes';
 const NAVBAR_CLASS: NavbarClassProps = {
   link: 'navbar__link ',
   icon: 'navbar__icon ',
+  iconSize: '2em',
   button: 'navbar__button ',
   userDropdown: 'navbar__userDropdown ',
+  notificationDropdown: 'navbar__notificationDropdown',
 };
 
 const NavBar = () => {
@@ -32,7 +34,7 @@ const NavBar = () => {
         <Container fluid>
           <Navbar.Brand as={NavLink} to="/">
             Track{' '}
-            <MdScreenSearchDesktop className={NAVBAR_CLASS.icon} size={'2em'} />{' '}
+            <MdScreenSearchDesktop className={NAVBAR_CLASS.icon} size={NAVBAR_CLASS.iconSize} />{' '}
             Issue
           </Navbar.Brand>
           <Navbar.Offcanvas
@@ -112,7 +114,7 @@ const NavBar = () => {
             <Navbar.Toggle
               as={FiMenu}
               className="p-0"
-              size={'2em'}
+              size={NAVBAR_CLASS.iconSize}
               aria-controls="offcanvasNavbar-expand-md"
             />
           </Nav>

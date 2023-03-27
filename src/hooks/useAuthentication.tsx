@@ -89,7 +89,7 @@ const useAuthentication = () => {
         email: data.email!,
         acessLevel: 1,
         terms: data.terms!,
-        notifications: []
+        notifications: [],
       };
 
       await setDoc(userDocRef, userData);
@@ -175,7 +175,7 @@ const useAuthentication = () => {
 
     // Ache o id conrrespondente da notificação.
     const notificationIndex = userData.notifications!.findIndex(
-      n => n.id === notification.id,
+      userDataNotification => userDataNotification.id === notification.id,
     );
 
     if (notificationIndex !== -1) {

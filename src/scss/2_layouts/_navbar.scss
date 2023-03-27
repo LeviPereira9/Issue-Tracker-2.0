@@ -12,7 +12,7 @@
     display: none !important;
   }
 
-  &-toggler {
+  .navbar-toggler {
     cursor: pointer;
     border: none !important;
     color: variables.$navbar-toggler-color;
@@ -37,6 +37,52 @@
     color: variables.$form-button-color;
   }
 
+  &__badge {
+    position: absolute;
+    left: 25px;
+    border-radius: 50%;
+  }
+
+  &__notificationDropdown {
+    position: relative;
+
+    //Custom BootStrap
+    .dropdown-menu {
+      background-color: variables.$color-primary-dark;
+      position: absolute;
+      width: 235px !important;
+      top: 100% !important;
+      left: -200% !important;
+
+      @media (max-width: 768px) {
+        left: -300% !important;
+      }
+
+      span {
+        display: block;
+        text-align: center;
+        color: white;
+        font-weight: normal;
+      }
+    }
+
+    .dropdown-item {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 0.95em;
+      color: white !important;
+      color: variables.$global-subText-color;
+
+      &:hover {
+        background-color: variables.$color-primary;
+        color: white !important;
+      }
+    }
+
+    //End Custom BootStrap
+  }
+
   &__link {
     font-family: variables.$navbar-link-font;
     font-weight: bold;
@@ -57,9 +103,20 @@
       min-width: 100px !important;
       top: 100% !important;
       left: -50% !important;
+      background-color: variables.$color-primary-dark;
 
       @media (max-width: 768px) {
         left: -100% !important;
+      }
+
+      .dropdown-item {
+        color: white !important;
+        color: variables.$global-subText-color;
+
+        &:hover {
+          background-color: variables.$color-primary;
+          color: white !important;
+        }
       }
     }
 

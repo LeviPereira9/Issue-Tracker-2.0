@@ -1,8 +1,10 @@
 type NavbarClassProps = {
     link: string;
     icon: string;
+    iconSize:string;
     button: string;
     userDropdown: string;
+    notificationDropdown: string;
   };
   
   type NavbarAuthProps = {

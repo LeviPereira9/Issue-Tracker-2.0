@@ -7,7 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 //Icons
 import { MdAdminPanelSettings } from 'react-icons/md';
-import { BsPersonCircle, BsFillBellFill } from 'react-icons/bs';
+import { BsPersonCircle } from 'react-icons/bs';
 
 //Hook - Auth
 import { useAuthentication } from '../../../hooks/useAuthentication';
@@ -17,52 +17,10 @@ import { useAuthDataContext } from '../../../hooks/useContexts';
 
 //Types
 import { NavbarClassProps, NavbarAuthProps } from '../../../types/navbarTypes';
-import { Users } from '../../../types/autheticationTypes';
+import { NavbarNotifications } from './NavbarNotifications';
 
-function RenderNotifications(
-  NAVBAR_CLASS: NavbarClassProps,
-  updateNotification: any,
-  userData: Users
-) {
-  return (
-    <>
-      <NavDropdown
-        active={true}
-        title={
-          <>
-            <BsFillBellFill className={NAVBAR_CLASS.icon} size="2em" />
-          </>
-        }
-        className={`${NAVBAR_CLASS.link + NAVBAR_CLASS.userDropdown} me-4`}
-      >
-        <>
-          {userData.notifications !== undefined && userData.notifications.filter(notification => notification.read === false)
-            .length === 0 ? (
-            <span>Volte</span>
-          ) : (
-            <>
-              {userData.notifications !== undefined && userData.notifications
-                .filter(notification => notification.read === false)
-                .map(notification => (
-                  <NavDropdown.Item
-                    key={notification.from}
-                    as={NavLink}
-                    to={`/${notification.from}`}
-                    onClick={() => {
-                      updateNotification(notification, userData);
-                    }}
-                  >
-                    {notification.subject}
-                  </NavDropdown.Item>
-                ))}
-            </>
-          )}
-        </>
-      </NavDropdown>
-    </>
-  );
-}
 
+//Navegação dos ADMINS
 function RenderAdminAuth(acessLevel: number, NAVBAR_CLASS: NavbarClassProps) {
   if (acessLevel > 1) {
     return (
@@ -70,6 +28,7 @@ function RenderAdminAuth(acessLevel: number, NAVBAR_CLASS: NavbarClassProps) {
         <Nav.Link as={NavLink} to="/adm">
           <MdAdminPanelSettings
             className={`${NAVBAR_CLASS.icon} me-4`}
+            //Não usa o tamanho padrão dos Icons!!
             size={'2.7em'}
           />
         </Nav.Link>
@@ -78,8 +37,9 @@ function RenderAdminAuth(acessLevel: number, NAVBAR_CLASS: NavbarClassProps) {
   }
 }
 
+//Verifica usuário logado ou não e mostra suas respectivas ferramentas.
 const NavbarAuth = ({ NAVBAR_CLASS }: NavbarAuthProps) => {
-  const { logout, updateNotification } = useAuthentication();
+  const { logout } = useAuthentication();
   const { userData, logged, loading } = useAuthDataContext();
 
   if (loading) {
@@ -88,19 +48,18 @@ const NavbarAuth = ({ NAVBAR_CLASS }: NavbarAuthProps) => {
     if (logged) {
       return (
         <>
-          { userData !== undefined && RenderNotifications(
-            NAVBAR_CLASS,
-            updateNotification,
-            userData
-          )}
-          { userData && RenderAdminAuth(userData.acessLevel, NAVBAR_CLASS)}
+          {/* Sino de notificações */}
+          <NavbarNotifications NAVBAR_CLASS={NAVBAR_CLASS}/>
+          {/* Distintivo de ADMIN */}
+          {RenderAdminAuth(userData.acessLevel, NAVBAR_CLASS)}
+          {/* Avatar do Logado */}
           <NavDropdown
             active={true}
             title={
               <>
                 <BsPersonCircle
                   className={`${NAVBAR_CLASS.icon}`}
-                  size={'2em'}
+                  size={NAVBAR_CLASS.iconSize}
                 />
               </>
             }
@@ -143,6 +102,7 @@ const NavbarAuth = ({ NAVBAR_CLASS }: NavbarAuthProps) => {
     } else {
       return (
         <>
+          {/* Criar conta ou logar. */}
           <Nav.Link
             as={NavLink}
             to="/register"

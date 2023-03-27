@@ -40,6 +40,7 @@ const useAuthData = () => {
   },[auth])
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const getUserData = async () => {
       setLoading(true);
       if (user) {
