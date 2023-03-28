@@ -1,0 +1,48 @@
+@use '../../1_base/variables';
+@use '../../1_base/base.scss';
+
+.priorities {
+  &-header {
+    &-title {
+      border-bottom: 1px solid variables.$global-border-color;
+    }
+
+    &-subTitle {
+      color: variables.$global-subText-color;
+    }
+  }
+  &-infos {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5em;
+
+    &__card {
+      border: 1px solid variables.$global-border-color;
+      border-radius: 10px;
+      padding: 20px 25px;
+      min-width: 323px;
+
+      &-text {
+        color: variables.$global-subText-color;
+        border-bottom: 1px solid variables.$global-border-color;
+        padding-left: 10px;
+        padding-right: 115px;
+        text-align: start;
+      }
+
+      &-data {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px;
+
+        &__numbers {
+          font-size: 1.3em;
+          font-weight: bold;
+        }
+        &__percentage {
+        }
+      }
+    }
+  }
+}

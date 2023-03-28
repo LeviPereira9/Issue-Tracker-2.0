@@ -11,6 +11,7 @@ import useAuthData from './hooks/useAuthData';
 //Pages
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Priorities from './pages/Priorities';
 import Register from './pages/Register';
 
 //Contexts
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={!logged ? <Register /> : <Navigate to="/"/>} />
             <Route path="/login" element={!logged ? <Login /> : <Navigate to="/"/>} />
+            <Route path="/priorities" element={<Priorities/>}/>
           </Routes>
         </BrowserRouter>
       </AuthDataProvider>
