@@ -25,7 +25,7 @@ function RenderAdminAuth(acessLevel: number, NAVBAR_CLASS: NavbarClassProps) {
   if (acessLevel > 1) {
     return (
       <>
-        <Nav.Link as={NavLink} to="/adm">
+        <Nav.Link as={NavLink} to="/adm" aria-label='Ir para página de administração' tabIndex={0}>
           <MdAdminPanelSettings
             className={`${NAVBAR_CLASS.icon} me-4`}
             //Não usa o tamanho padrão dos Icons!!
@@ -64,11 +64,14 @@ const NavbarAuth = ({ NAVBAR_CLASS }: NavbarAuthProps) => {
               </>
             }
             id="collasible-nav-dropdown"
+            aria-label='Abrir menu de usuário'
             className={`${NAVBAR_CLASS.link + NAVBAR_CLASS.userDropdown} me-4`}
           >
             <NavDropdown.Item
               as={NavLink}
               to="/profile"
+              aria-label='Ir para página de perfil do usuário'
+              tabIndex={0}
               className={`${NAVBAR_CLASS.link}`}
             >
               Profile
@@ -76,6 +79,8 @@ const NavbarAuth = ({ NAVBAR_CLASS }: NavbarAuthProps) => {
             <NavDropdown.Item
               as={NavLink}
               to="/settings"
+              aria-label='Ir para página de configurações do usuário'
+              tabIndex={0}
               className={`${NAVBAR_CLASS.link}`}
             >
               Settings
@@ -83,6 +88,8 @@ const NavbarAuth = ({ NAVBAR_CLASS }: NavbarAuthProps) => {
             <NavDropdown.Item
               as={NavLink}
               to="/help"
+              aria-label='Ir para página de suporte ao usuário'
+              tabIndex={0}
               className={`${NAVBAR_CLASS.link}`}
             >
               Help
@@ -93,6 +100,8 @@ const NavbarAuth = ({ NAVBAR_CLASS }: NavbarAuthProps) => {
                 logout();
               }}
               className={`${NAVBAR_CLASS.link}`}
+              aria-label='Deslogar da conta'
+              tabIndex={0}
             >
               Sign Out
             </NavDropdown.Item>
@@ -107,6 +116,8 @@ const NavbarAuth = ({ NAVBAR_CLASS }: NavbarAuthProps) => {
             as={NavLink}
             to="/register"
             className={`${NAVBAR_CLASS.link} me-2`}
+            aria-label='Ir para o formulário de criar uma conta'
+            tabIndex={0}
           >
             Sign Up
           </Nav.Link>
@@ -114,6 +125,8 @@ const NavbarAuth = ({ NAVBAR_CLASS }: NavbarAuthProps) => {
             as={NavLink}
             to="/login"
             className={`${NAVBAR_CLASS.button + NAVBAR_CLASS.link} px-3 me-3`}
+            aria-label='Ir para o formulário de entrar na conta'
+            tabIndex={0}
           >
             Sign In
           </Nav.Link>

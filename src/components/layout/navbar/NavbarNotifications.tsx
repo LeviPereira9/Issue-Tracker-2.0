@@ -67,6 +67,7 @@ const NavbarNotifications = ({ NAVBAR_CLASS }: NavbarNotificationProps) => {
         className={`${
           NAVBAR_CLASS.link + NAVBAR_CLASS.notificationDropdown
         }  me-4`}
+        aria-label='Abrir notificações'
       >
         <>
           {notifications && notifications.length === 0 ? (
@@ -82,6 +83,8 @@ const NavbarNotifications = ({ NAVBAR_CLASS }: NavbarNotificationProps) => {
                     onClick={() => {
                       handleNotificationClick(notification);
                     }}
+                    aria-label={`Ir para o chamado referente ao assunto: ${notification.subject}`}
+                    tabIndex={0}
                   >
                     {notification.subject}
                   </NavDropdown.Item>
@@ -94,6 +97,8 @@ const NavbarNotifications = ({ NAVBAR_CLASS }: NavbarNotificationProps) => {
           as={NavLink}
           className={`${NAVBAR_CLASS.link} text-center`}
           to="/notifications"
+          aria-label='Ver todas as notificações'
+          tabIndex={0}
         >
           See all notifications
         </NavDropdown.Item>

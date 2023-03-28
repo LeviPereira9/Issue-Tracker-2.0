@@ -32,7 +32,7 @@ const NavBar = () => {
     <>
       <Navbar expand="md" className="mb-3">
         <Container fluid>
-          <Navbar.Brand as={NavLink} to="/">
+          <Navbar.Brand as={NavLink} to="/" aria-label='ir para página principal' tabIndex={0}>
             Track{' '}
             <MdScreenSearchDesktop className={NAVBAR_CLASS.icon} size={NAVBAR_CLASS.iconSize} />{' '}
             Issue
@@ -52,6 +52,8 @@ const NavBar = () => {
                 <Nav.Link
                   as={NavLink}
                   to="/"
+                  aria-label='Ir para página principal'
+                  tabIndex={0}
                   end
                   className={`${NAVBAR_CLASS.link}`}
                 >
@@ -60,6 +62,8 @@ const NavBar = () => {
                 <Nav.Link
                   as={NavLink}
                   to="/priorities"
+                  aria-label='Ir para página de problemas em prioridade'
+                  tabIndex={0}
                   className={`${NAVBAR_CLASS.link}`}
                 >
                   Priorities
@@ -67,6 +71,8 @@ const NavBar = () => {
                 <Nav.Link
                   as={NavLink}
                   to="/secure_practices"
+                  aria-label='Ir para página de dicas de segurança'
+                  tabIndex={0}
                   className={`${NAVBAR_CLASS.link}`}
                 >
                   Secure Practices
@@ -74,11 +80,14 @@ const NavBar = () => {
                 <NavDropdown
                   title="Tickets"
                   id="collasible-nav-dropdown"
+                  aria-label='Abrir menu de tickets'
                   className={`${NAVBAR_CLASS.link}`}
                 >
                   <NavDropdown.Item
                     as={NavLink}
                     to="/anonymous_ticket"
+                    aria-label='Ir para o formulário de chamado anônimo'
+                    tabIndex={0}
                     className={`${NAVBAR_CLASS.link}`}
                   >
                     Anonymous
@@ -86,6 +95,8 @@ const NavBar = () => {
                   <NavDropdown.Item
                     as={NavLink}
                     to="/internal_ticket"
+                    aria-label='Ir para o formulário de chamado interno'
+                    tabIndex={0}
                     className={`${NAVBAR_CLASS.link}`}
                   >
                     Internal
@@ -94,6 +105,8 @@ const NavBar = () => {
                   <NavDropdown.Item
                     as={NavLink}
                     to="/tickets"
+                    aria-label='Ir para página com todos os seus tickets'
+                    tabIndex={0}
                     className={`${NAVBAR_CLASS.link}`}
                   >
                     My Tickets
@@ -102,6 +115,8 @@ const NavBar = () => {
                 <Nav.Link
                   as={NavLink}
                   to="/faq"
+                  aria-label='Ir para página de perguntas e respostas frequentes'
+                  tabIndex={0}
                   className={`${NAVBAR_CLASS.link}`}
                 >
                   FAQ
@@ -115,6 +130,8 @@ const NavBar = () => {
               as={FiMenu}
               className="p-0"
               size={NAVBAR_CLASS.iconSize}
+              aria-label='Abrir menu de navegação'
+              tabIndex={0}
               aria-controls="offcanvasNavbar-expand-md"
             />
           </Nav>
