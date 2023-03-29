@@ -14,6 +14,26 @@ O principal objetivo do Track Issues é o gerenciamento e organização de probl
 
 Outro aspecto do Track Issues é prover respostas rápidas e dicas de segurança, com um conteúdo gerenciado pela própria empresa. Com uma seção de perguntas frequentes, a empresa pode catalogar as principais chamadas que ocorrem e postar as soluções, evitando um fluxo constante e periódico de chamados similares, como por exemplo, um reset anual de senha dos funcionários e como proceder para conseguir uma nova senha.
 
+## Próximos Passos
+
+✔️ - Concluído
+
+🚩 - Aguardando iniciação
+
+🔥 - Em desenvolvimento
+
+### Layouts
+
+- Navbar ✔️
+- Home 🚩
+- Login ✔️
+- Register ✔️
+- Priorities 🔥
+- Tips 🚩
+- FAQs 🚩
+- Content Manager 🚩
+- Issue Manager 🚩
+
 ## Estrutura
 
 Partindo desse cenário, o projeto consiste em um único site que atende aqueles que vão abrir chamados e aqueles que vão tratar os chamados e gerenciar o conteúdo do site.
