@@ -1,46 +1,35 @@
-# Getting Started with Create React App
+# Track Issues
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+O projeto Track Issues está em desenvolvimento, portanto ainda não foi realizado um deploy para que terceiros possam visualizar o progresso em tempo real.
 
-## Available Scripts
+O projeto Track Issues surgiu da minha vontade de expandir um pequeno projeto para iniciantes disponibilizado na internet. Após finalizar a aplicação proposta para iniciantes, senti que faltavam muitos recursos que um tracker Issues deveria ter. Decidi, então, seguir em frente e expandir as possibilidades que um tracker issues poderia oferecer, levando em consideração minha pequena experiência na área administrativa.
 
-In the project directory, you can run:
+[Primeiro Track Issue](https://levipereira9.github.io/Track-Issue-JS/)
 
-### `npm start`
+## Objetivo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Este é um projeto que visa atender as chamadas que uma empresa teria internamente, partindo de problemas internos até os externos. Todos os chamados são abertos pelos funcionários da empresa, e há também um canal de informações de estado atual, para tirar dúvidas e tratar de segurança online.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+O principal objetivo do Track Issues é o gerenciamento e organização de problemas da empresa. Quando um funcionário acessa o site, a primeira coisa que ele visualiza são os principais problemas que a empresa está ciente, como a queda do sistema, problemas de envio de e-mail e outros problemas gerais que afetam parte dos serviços da empresa.
 
-### `npm test`
+Outro aspecto do Track Issues é prover respostas rápidas e dicas de segurança, com um conteúdo gerenciado pela própria empresa. Com uma seção de perguntas frequentes, a empresa pode catalogar as principais chamadas que ocorrem e postar as soluções, evitando um fluxo constante e periódico de chamados similares, como por exemplo, um reset anual de senha dos funcionários e como proceder para conseguir uma nova senha.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Estrutura
 
-### `npm run build`
+Partindo desse cenário, o projeto consiste em um único site que atende aqueles que vão abrir chamados e aqueles que vão tratar os chamados e gerenciar o conteúdo do site.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O fluxograma de navegação, a estrutura do banco de dados e um pequeno rascunho do layout do site podem ser encontrados aqui:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [Estrutura](https://whimsical.com/pagina-AmECzDfKjtvHi7Jk338JdA)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Essa estrutura é o primeiro rascunho, por isso está sujeito a mudanças a qualquer momento.
 
-### `npm run eject`
+## Aprendizados
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Este projeto utiliza as seguintes tecnologias:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React;
+- Typescript;
+- SCSS;
+- Bootstrap;
+- Firebase.
