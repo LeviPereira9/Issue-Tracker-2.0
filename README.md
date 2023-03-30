@@ -18,7 +18,7 @@ Outro aspecto do Track Issues é prover respostas rápidas e dicas de segurança
 
 ✔️ - Concluído
 
-🚩 - Aguardando iniciação
+🚩 - Pendente
 
 🔥 - Em desenvolvimento
 
