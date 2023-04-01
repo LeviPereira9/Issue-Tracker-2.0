@@ -2,6 +2,7 @@
 @use '../../1_base/base.scss';
 
 .priorities {
+  //Title
   &-header {
     &-title {
       border-bottom: 1px solid variables.$global-border-color;
@@ -11,16 +12,30 @@
       color: variables.$global-subText-color;
     }
   }
+
+  //Cards
   &-infos {
-    display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin-top: 5em;
 
     &__card {
       border: 1px solid variables.$global-border-color;
       border-radius: 10px;
       padding: 20px 25px;
-      min-width: 323px;
+      width: 323px !important;
+      transition: 0.185s;
+      box-shadow: 0px 0px 23px -15px #000000;
+
+      &:hover {
+        background-color: variables.$color-primary-dark;
+        color: variables.$color-neutral;
+
+        .priorities-infos__card-text,
+        .priorities-infos__card-data__sort,
+        .priorities-infos__card-data__notSort {
+          color: variables.$color-neutral;
+        }
+      }
 
       &-text {
         color: variables.$global-subText-color;
@@ -37,12 +52,27 @@
         padding: 0 15px;
 
         &__numbers {
-          font-size: 1.3em;
+          font-size: 1.76em;
           font-weight: bold;
+          font-family: Helvetica;
+          box-sizing: border-box;
         }
-        &__percentage {
+
+        &__sort {
+          font-size: 1.5em;
+          color: variables.$global-subText-color;
+          cursor: pointer;
+          box-sizing: border-box;
+        }
+
+        &__notSort {
+          font-size: 1.5em;
+          color: variables.$global-subText-color;
+          box-sizing: border-box;
         }
       }
     }
   }
+
+  //Issues
 }
