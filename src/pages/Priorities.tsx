@@ -100,70 +100,82 @@ const Priorities = () => {
               </div>
               <div className="priorities-issue-panel-infos row">
                 <div className="priorities-issue-panel-infos-left col-lg-6">
-                  <tr>
-                    <td colSpan={2}>
-                      <strong>Issue Details</strong>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Issue ID:</td>
-                    <td>310323-M000</td>
-                  </tr>
-                  <tr>
-                    <td>Creator:</td>
-                    <td>Gus</td>
-                  </tr>
-                  <tr>
-                    <td>Department:</td>
-                    <td>Marketing</td>
-                  </tr>
-                  <tr>
-                    <td>Created At:</td>
-                    <td>12/03/2023 - 11:52:03</td>
-                  </tr>
-                  <tr>
-                    <td>Due Date:</td>
-                    <td>24 hours</td>
-                  </tr>
-                  <tr>
-                    <td>Subject:</td>
-                    <td>Official Instagram account.</td>
-                  </tr>
-                  <tr>
-                    <td>Description:</td>
-                    <td>
-                      We lost access to the Instagram account for third parties,
-                      suspecting phishing.
-                    </td>
-                  </tr>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th colSpan={2}>
+                          Issue Details
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className='table-title'>ID:</td>
+                        <td className='table-value'>{issue.docId}</td>
+                      </tr>
+                      <tr>
+                        <td className='table-title'>Creator:</td>
+                        <td className='table-value'>{issue.creator.name}</td>
+                      </tr>
+                      <tr>
+                        <td className='table-title'>Department:</td>
+                        <td className='table-value'>{issue.creator.department}</td>
+                      </tr>
+                      <tr>
+                        <td className='table-title'>Created At:</td>
+                        <td className='table-value'>{issue.createdAt}</td>
+                      </tr>
+                      <tr>
+                        <td className='table-title'>{issue.closedAt ? 'Closed At: ' : 'Due Date: '}</td>
+                        <td className='table-value'>
+                          {issue.closedAt
+                            ? issue.closedAt
+                            : issue.expectedConclusion}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className='table-title'>Subject:</td>
+                        <td className='table-value'>{issue.subject}</td>
+                      </tr>
+                      <tr>
+                        <td className='table-title'>Description:</td>
+                        <td className='table-value'>{issue.desc}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                 <div className="priorities-issue-panel-infos-right col-lg-6">
                   <table>
-                    <tr>
-                      <td colSpan={2}>
-                        <strong>Dealings Details</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Status:</td>
-                      <td>In progress</td>
-                    </tr>
-                    <tr>
-                      <td>Priority:</td>
-                      <td>High</td>
-                    </tr>
-                    <tr>
-                      <td>Impact Level:</td>
-                      <td>Medium</td>
-                    </tr>
-                    <tr>
-                      <td>Impact on Clients:</td>
-                      <td>Yes</td>
-                    </tr>
-                    <tr>
-                      <td>Impacted Departments:</td>
-                      <td>Sells, Marketing, Call Center</td>
-                    </tr>
+                    <thead>
+                      <tr>
+                        <th colSpan={2}>Dealings Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className='table-title'>Status:</td>
+                        <td className='table-value'>{issue.status.text}</td>
+                      </tr>
+                      <tr>
+                        <td className='table-title'>Priority:</td>
+                        <td className='table-value'>{issue.priority}</td>
+                      </tr>
+                      <tr>
+                        <th className='pt-2 pb-1' colSpan={2}>Impact Details</th>
+                      </tr>
+                      <tr>
+                        <td className='table-title'>Level:</td>
+                        <td className='table-value'>{issue.impact.level.text}</td>
+                      </tr>
+                      <tr>
+                        <td className='table-title'>on Clients:</td>
+                        <td className='table-value'>{issue.impact.onClients ? 'Yes' : 'No'}</td>
+                      </tr>
+                      <tr>
+                        <td className='table-title'>Departments:</td>
+                        <td className='table-value'>{issue.impact.deparments}</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               </div>
