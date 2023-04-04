@@ -77,10 +77,70 @@
   //Issues
   &-issue {
     &-panel {
+      position: relative;
+      background-color: variables.$priorities-info-bg;
+      padding: 10px 25px;
+      border-radius: 25px;
+
+      &-header {
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid variables.$global-border-color;
+
+        &__title {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          font-style: italic;
+          color: variables.$global-text-color;
+          font-weight: bold;
+
+          .checked {
+            color: variables.$priorities-info-check-color;
+
+            &::after {
+              background-color: variables.$priorities-info-check-bg;
+            }
+          }
+
+          .processing {
+            color: variables.$priorities-info-processing-color;
+
+            &::after {
+              background-color: variables.$priorities-info-processing-bg;
+            }
+          }
+
+          &-icon {
+            position: relative;
+
+            svg {
+              padding-bottom: 4px;
+              position: relative;
+              z-index: 1;
+            }
+
+            &::after {
+              content: '';
+              width: 35px;
+              height: 35px;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+
       &-infos {
+        margin-bottom: 16px;
+        border-bottom: 1px solid variables.$global-border-color;
+
         table {
           line-height: 1.5em;
-          font-family: Arial, Helvetica, sans-serif;
+          font-family: 'Roboto', sans-serif;
 
           td {
             vertical-align: text-top !important;
@@ -88,19 +148,69 @@
         }
 
         .table-title {
+          padding-bottom: 13px;
+        }
+
+        .table-key {
           padding-right: 16px;
-          padding-bottom: 4px;
+          padding-bottom: 6px;
           color: variables.$global-subText-color;
         }
 
         .table-value {
-          font-weight: bold;
+          font-weight: 500;
+          color: variables.$global-text-color;
           text-align: start;
         }
 
-        &-left {
+        &-left,
+        &-right {
+          padding-bottom: 16px;
         }
       }
+    }
+  }
+}
+
+.comment {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  background-color: white;
+  padding: 6px 16px;
+  border-radius: 16px;
+
+  &-userProfile {
+    padding-right: 6px;
+    margin-right: 6px;
+    border-right: 1px solid variables.$global-border-color;
+
+    &-img {
+      border-radius: 50%;
+    }
+  }
+
+  &-info {
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      padding-right: 32px;
+      margin-bottom: 6px;
+
+      &-tools {
+        cursor: pointer;
+      }
+    }
+
+    &__at {
+      color: variables.$global-subText-color;
+      font-style: italic;
+    }
+
+    &__text {
+      text-indent: 0.5em;
+      padding-right: 32px;
+      color: variables.$global-text-color;
     }
   }
 }

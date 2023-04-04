@@ -11,7 +11,7 @@ $color-neutral: white;
 //============================================================
 $global-border-color: #ccc;
 $global-subText-color: #555555;
-
+$global-text-color: #333333;
 //============================================================
 //Forms
 //============================================================
@@ -37,3 +37,13 @@ $form-button-active: $color-primary-dark;
 $navbar-brand-font: 'Oleo Script', cursive;
 $navbar-link-font: 'Roboto', sans-serif;
 $navbar-toggler-color: #686868;
+
+//============================================================
+//Priorities
+//============================================================
+$priorities-info-bg: #e3dfff;
+
+$priorities-info-check-bg: #c0da74;
+$priorities-info-check-color: #388659;
+$priorities-info-processing-bg: #f2cd5d;
+$priorities-info-processing-color: #ec7d10;
