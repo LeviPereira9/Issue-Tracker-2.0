@@ -1,3 +1,6 @@
+//React
+import { useState } from 'react';
+
 //Components
 import { Container } from 'react-bootstrap';
 import PrioritiesCards from '../components/layout/priorities/PrioritiesCards';
@@ -5,7 +8,15 @@ import PrioritiesCards from '../components/layout/priorities/PrioritiesCards';
 //Icons
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TbClockHour2 } from 'react-icons/tb';
-import { BsShieldFillExclamation, BsShieldFillCheck, BsThreeDots } from 'react-icons/bs';
+import {
+  BsShieldFillExclamation,
+  BsShieldFillCheck,
+  BsThreeDots,
+  BsHandThumbsUp,
+  BsHandThumbsUpFill,
+  BsFillChatLeftTextFill,
+} from 'react-icons/bs';
+import { RiThumbUpLine, RiThumbUpFill } from 'react-icons/ri';
 
 const Priorities = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -75,6 +86,7 @@ const Priorities = () => {
             name: 'Augustinho Carrara',
             at: '31/03/2023 - 16:13:22',
             text: 'The team has received the call and is currently prioritizing it. We have checked the other social media accounts and despite attempts to access them, no other accounts have been violated.',
+            likes: ['iYsVuKmr9sfny1pTNb8Tvi6X6HJ2', 'Abada', 'Mangão'],
           },
           {
             id: 'Mangão',
@@ -82,11 +94,31 @@ const Priorities = () => {
             name: 'Michael Jackson da Silva',
             at: '31/03/2023 - 16:24:59',
             text: 'An announcement has been made on social media alerting that we are not in control of the Instagram account and advising not to continue any conversation at the moment.',
+            likes: ['iYsVuKmr9sfny1dsadsapTNb8Tvi6X6HJ2', 'Abada', 'Mangão'],
           },
         ],
       },
     },
   ];
+
+  const userId = 'iYsVuKmr9sfny1pTNb8Tvi6X6HJ2';
+
+  const [comments, setComments] = useState<any>(
+    bigIssueExample.map(issue => issue.update.comments),
+  );
+
+  console.log(comments);
+
+  const handleLikeComment = (commentId: any, userId: any) => {
+    const updatedComments:any = comments.map((comment:any) => {
+      if (comment.id === commentId) {
+        const updatedLikes = [...comment.likes, userId];
+        return { ...comment, likes: updatedLikes };
+      }
+      return comment;
+    });
+    setComments(updatedComments);
+  };
 
   return (
     <main className="priorities mt-5">
@@ -224,16 +256,30 @@ const Priorities = () => {
                     <div className="comment-info">
                       <div className="comment-info-header">
                         <div className="comment-info-header-user">
-                          <span className="h6">
-                            {comment.name} •
+                          <span className="h6">{comment.name} •</span>
+                          <span className="comment-info__at">
+                            {' '}
+                            {comment.at}
                           </span>
-                          <span className="comment-info__at"> {comment.at}</span>
                         </div>
                         <div className="comment-info-header-tools">
-                          <BsThreeDots/>
+                          <BsThreeDots />
                         </div>
                       </div>
                       <p className="comment-info__text">{comment.text}</p>
+                      <div className="comment-info__tools">
+                        {comment.likes.includes(userId) ? (
+                          <RiThumbUpFill className="comment-info__tools-thumbFill" />
+                        ) : (
+                          <RiThumbUpLine
+                            className="comment-info__tools-thumb"
+                            onClick={() => {
+                              handleLikeComment(comment.id, userId);
+                            }}
+                          />
+                        )}
+                        <BsFillChatLeftTextFill className="comment-info__tools-chat" />
+                      </div>
                     </div>
                   </div>
                 ))}

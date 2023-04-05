@@ -186,11 +186,18 @@
     border-right: 1px solid variables.$global-border-color;
 
     &-img {
+      margin-top: 8px;
       border-radius: 50%;
     }
   }
 
   &-info {
+    svg {
+      font-size: 1.5em;
+      margin-right: 16px;
+      cursor: pointer;
+    }
+
     &-header {
       display: flex;
       justify-content: space-between;
@@ -211,6 +218,24 @@
       text-indent: 0.5em;
       padding-right: 32px;
       color: variables.$global-text-color;
+    }
+
+    &__tools {
+      &-thumb {
+        color: variables.$global-subText-color;
+      }
+
+      &-thumbFill {
+        color: #3b5998;
+      }
+
+      &-chat {
+        color: variables.$global-subText-color;
+
+        &:hover {
+          color: variables.$color-primary-dark;
+        }
+      }
     }
   }
 }
