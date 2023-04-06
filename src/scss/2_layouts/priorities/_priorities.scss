@@ -194,7 +194,6 @@
   &-info {
     svg {
       font-size: 1.5em;
-      margin-right: 16px;
       cursor: pointer;
     }
 
@@ -205,7 +204,66 @@
       margin-bottom: 6px;
 
       &-tools {
+        position: relative;
         cursor: pointer;
+
+        &__toggle {
+          position: relative;
+          transition: ease-out 2s;
+          z-index: 1;
+
+          &:hover {
+            &::after {
+              background-color: #1da0f22d;
+            }
+          }
+          &::after {
+            content: '';
+            position: absolute;
+            width: 1.75em;
+            height: 1.75em;
+            top: -1px;
+            left: -1.35px;
+            border-radius: 50%;
+            transition: 0.25s;
+            z-index: -1;
+          }
+        }
+
+        &__options {
+          position: absolute;
+          width: 5em;
+          top: 20px;
+          left: -70%;
+          background-color: variables.$color-neutral;
+          border: 1px solid variables.$global-border-color;
+          border-radius: 5px;
+          z-index: 2;
+
+          & > *:first-child {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+          }
+
+          & > *:last-child {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+          }
+
+          li {
+            padding: 3px 10px;
+            text-align: start;
+            color: variables.$global-text-color;
+            margin-bottom: 0;
+            font-weight: 600;
+
+            &:hover {
+              background-color: variables.$color-primary-dark;
+              color: variables.$color-neutral;
+              overflow: hidden;
+            }
+          }
+        }
       }
     }
 
@@ -221,19 +279,42 @@
     }
 
     &__tools {
-      &-thumb {
-        color: variables.$global-subText-color;
+      display: flex;
+      gap: 16px;
+
+      &-likes {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        &__count {
+          color: variables.$global-subText-color;
+        }
+
+        &__thumb {
+          color: variables.$global-subText-color;
+        }
+
+        &__thumbFill {
+          color: #3b5998;
+        }
       }
 
-      &-thumbFill {
-        color: #3b5998;
-      }
+      &-replies {
+        display: flex;
+        align-items: center;
+        gap: 6px;
 
-      &-chat {
-        color: variables.$global-subText-color;
+        &__comment {
+          color: variables.$global-subText-color;
 
-        &:hover {
-          color: variables.$color-primary-dark;
+          &:hover {
+            color: variables.$color-primary-dark;
+          }
+        }
+
+        &__count {
+          color: variables.$global-subText-color;
         }
       }
     }

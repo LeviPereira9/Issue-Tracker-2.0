@@ -1,5 +1,5 @@
 //React
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 //Components
 import { Container } from 'react-bootstrap';
@@ -17,6 +17,24 @@ import {
   BsFillChatLeftTextFill,
 } from 'react-icons/bs';
 import { RiThumbUpLine, RiThumbUpFill } from 'react-icons/ri';
+
+type Comment = {
+  id: string;
+  userId: string;
+  img: string;
+  name: string;
+  at: string;
+  text: string;
+  likes: string[];
+  replies?: {
+    id: string;
+    userId: string;
+    name: string;
+    at: string;
+    text: string;
+    likes: string[];
+  }[];
+};
 
 const Priorities = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -82,15 +100,28 @@ const Priorities = () => {
         comments: [
           {
             id: 'abada',
+            userId: 'iYsVuKmr9sfny1pTNb8Tvi6X6HJ2',
             img: 'https://via.placeholder.com/75',
             name: 'Augustinho Carrara',
             at: '31/03/2023 - 16:13:22',
             text: 'The team has received the call and is currently prioritizing it. We have checked the other social media accounts and despite attempts to access them, no other accounts have been violated.',
             likes: ['iYsVuKmr9sfny1pTNb8Tvi6X6HJ2', 'Abada', 'Mangão'],
+            replies: [
+              {
+                id: 'Mangão',
+                userId: 'iYsVuKmr9sfny1pTNb8Tvi6X6HJ2',
+                img: 'https://via.placeholder.com/50',
+                name: 'Michael Jackson da Silva',
+                at: '31/03/2023 - 16:20:31',
+                text: 'Instagram outage announcement is being produced.',
+                likes: ['iYsVuKmr9sfny1pTNb8Tvi6X6HJ2'],
+              },
+            ],
           },
           {
             id: 'Mangão',
             img: 'https://via.placeholder.com/75',
+            userId: 'iYsVuKmr9sfny1pTNb8Tvi6X6HJ2',
             name: 'Michael Jackson da Silva',
             at: '31/03/2023 - 16:24:59',
             text: 'An announcement has been made on social media alerting that we are not in control of the Instagram account and advising not to continue any conversation at the moment.',
@@ -101,28 +132,89 @@ const Priorities = () => {
     },
   ];
 
-  const userId = 'iYsVuKmr9sfny1pTNb8Tvi6X6HJ2';
-
-  const [comments, setComments] = useState<any>(
-    bigIssueExample.map(issue => issue.update.comments),
+  const userId: string = 'iYsVuKmr9sfny1pTNb8Tvi6X6HJ2';
+  //Menu Refs.
+  const menuRefs = useRef<(HTMLUListElement | null)[]>([]);
+  const [comments, setComments] = useState<Comment[]>(
+    bigIssueExample.map(issue => issue.update.comments).flat(),
+  );
+  const [openReplies, setOpenReplies] = useState<boolean[]>(
+    Array(comments.length).fill(false),
+  );
+  const [openMenus, setOpenMenus] = useState<boolean[]>(
+    Array(comments.length).fill(false),
   );
 
-  console.log(comments);
-
-  const handleLikeComment = (commentId: any, userId: any) => {
-    const updatedComments:any = comments.map((comment:any) => {
+  const handleLikeComment = (commentId: string, userId: string) => {
+    const updatedComments = comments.map((comment: Comment) => {
       if (comment.id === commentId) {
-        const updatedLikes = [...comment.likes, userId];
-        return { ...comment, likes: updatedLikes };
+        //Passa por todos os comentários, se o id for o mesmo...
+        if (comment.likes.includes(userId)) {
+          //Se já tiver dado like, é retirado.
+          const updatedLikes = comment.likes.filter(
+            usersId => usersId !== userId,
+          );
+          return { ...comment, likes: updatedLikes };
+        } else {
+          //Se não, adiciona.
+          const updatedLikes = [...comment.likes, userId];
+          return { ...comment, likes: updatedLikes };
+        }
       }
       return comment;
     });
     setComments(updatedComments);
   };
 
+  const handleMenuOpen = (index: number) => {
+    setOpenMenus(prevOpenMenus => {
+      const newOpenMenus = prevOpenMenus.map((isOpen, i) => {
+        // Fecha os menus antigos, exceto o que está sendo aberto
+        if (isOpen && i !== index) {
+          return false;
+        }
+        return isOpen;
+      });
+      // Define o estado do menu que está sendo aberto
+      newOpenMenus[index] = !newOpenMenus[index];
+      return newOpenMenus;
+    });
+  };
+
+  // Função para fechar os menus quando clica fora deles.
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Percorre a lista de refs para fechar todos os menus
+      menuRefs.current.forEach(ref => {
+        if (
+          ref &&
+          !ref.contains(event.target as Node) &&
+          !(
+            event.target instanceof Element &&
+            event.target.closest('.comment-info-header-tools__toggle')
+          )
+        ) {
+          setOpenMenus(openMenus.map(() => false));
+        }
+      });
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [openMenus]);
+
+  const handleOpenReplies = (index: number) => {
+    const newOpenReplies = [...openReplies];
+    newOpenReplies[index] = !newOpenReplies[index];
+    setOpenReplies(newOpenReplies);
+  };
+
   return (
     <main className="priorities mt-5">
-      <Container as={'header'} className="priorities-header">
+      <Container as={'section'} className="priorities-header">
         <h1 className="priorities-header-title">Problems Priorities</h1>
         <span className="priorities-header-subTitle">
           Destaque e acompanhamento dos principais problemas de acordo com sua
@@ -244,7 +336,7 @@ const Priorities = () => {
                 </div>
               </div>
               <div className="priorities-issue-panel-comments">
-                {issue.update.comments.map(comment => (
+                {comments.map((comment, index) => (
                   <div key={comment.id} className="comment">
                     <div className="comment-userProfile">
                       <img
@@ -263,23 +355,73 @@ const Priorities = () => {
                           </span>
                         </div>
                         <div className="comment-info-header-tools">
-                          <BsThreeDots />
+                          <span className="comment-info-header-tools__toggle">
+                            <BsThreeDots
+                              onClick={() => {
+                                handleMenuOpen(index);
+                              }}
+                            />
+                          </span>
+                          <ul
+                            className={`comment-info-header-tools__options ${
+                              !openMenus[index] && 'hidden'
+                            }`}
+                            ref={ref => {
+                              if (ref) {
+                                menuRefs.current[index] = ref;
+                              }
+                            }}
+                          >
+                            <li>Pin</li>
+                            <li>Share</li>
+                            <li>Report</li>
+                          </ul>
                         </div>
                       </div>
                       <p className="comment-info__text">{comment.text}</p>
                       <div className="comment-info__tools">
-                        {comment.likes.includes(userId) ? (
-                          <RiThumbUpFill className="comment-info__tools-thumbFill" />
-                        ) : (
-                          <RiThumbUpLine
-                            className="comment-info__tools-thumb"
-                            onClick={() => {
-                              handleLikeComment(comment.id, userId);
-                            }}
-                          />
-                        )}
-                        <BsFillChatLeftTextFill className="comment-info__tools-chat" />
+                        <div className="comment-info__tools-likes">
+                          {comment.likes.includes(userId) ? (
+                            <RiThumbUpFill
+                              className="comment-info__tools-likes__thumbFill"
+                              onClick={() => {
+                                handleLikeComment(comment.id, userId);
+                              }}
+                            />
+                          ) : (
+                            <RiThumbUpLine
+                              className="comment-info__tools-likes__thumb"
+                              onClick={() => {
+                                handleLikeComment(comment.id, userId);
+                              }}
+                            />
+                          )}
+                          <span className="comment-info__tools-likes__count">
+                            {' '}
+                            {comments[index].likes.length}
+                          </span>
+                        </div>
+                        <div className="comment-info__tools-replies">
+                          {true && (
+                            <BsFillChatLeftTextFill
+                              className="comment-info__tools-replies__comment"
+                              onClick={() => {
+                                handleOpenReplies(index);
+                              }}
+                            />
+                          )}
+                          <span className="comment-info__tools-replies__count">
+                            {comments[index].replies
+                              ? comments[index].replies?.length
+                              : '0'}
+                          </span>
+                        </div>
                       </div>
+                      <div
+                          className={`comment-info__replies ${
+                            !openReplies[index] && 'hidden'
+                          }`}
+                        >Olá mundo!</div>
                     </div>
                   </div>
                 ))}
