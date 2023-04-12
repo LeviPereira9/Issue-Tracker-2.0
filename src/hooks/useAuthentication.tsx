@@ -158,6 +158,7 @@ const useAuthentication = () => {
   const logout = () => {
     checkIfCancelled();
 
+    setPersistence(auth, browserSessionPersistence);
     signOut(auth);
   };
 
