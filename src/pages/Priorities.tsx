@@ -1,22 +1,14 @@
 //React
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 
 //Components
 import { Container } from 'react-bootstrap';
 import PrioritiesCards from '../components/layout/priorities/PrioritiesCards';
+import Comments from '../components/shared/Comments';
 
 //Icons
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TbClockHour2 } from 'react-icons/tb';
-import {
-  BsShieldFillExclamation,
-  BsShieldFillCheck,
-  BsThreeDots,
-  BsHandThumbsUp,
-  BsHandThumbsUpFill,
-  BsFillChatLeftTextFill,
-} from 'react-icons/bs';
-import { RiThumbUpLine, RiThumbUpFill } from 'react-icons/ri';
+import { BsShieldFillExclamation, BsShieldFillCheck } from 'react-icons/bs';
+import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 
 type Comment = {
   id: string;
@@ -30,6 +22,7 @@ type Comment = {
     id: string;
     userId: string;
     name: string;
+    img: string;
     at: string;
     text: string;
     likes: string[];
@@ -37,35 +30,10 @@ type Comment = {
 };
 
 const Priorities = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const issueExemple = {
-    docId: 'Canvote',
-    creatorId: 'b35iITFkUxManITs2evFfdJywFr1',
-    categoryIssue: 'Marketing',
-    subject: 'Conta oficial do instagram.',
-    descIssue:
-      'Perdemos o acesso a conta do instagram para terceiros, suspeitamos de phishing.',
-    createdAt: '12/03/2023 - 11:52:03',
-    closedAt: undefined,
-    expectedCompletion: undefined,
-    priority: 'high',
-    status: 'open',
-    comments: [
-      {
-        commenterId: 'b35iITFkUxManITs2evFfdJywFr1',
-        commenterName: 'Chris',
-        commenterDepartment: 'TI',
-        commentDesc:
-          'Conversando pelo teams, eles apontaram que outras contas também sofreram tentativas de acesso, mas somente o instagram não possuia o fator de duas etapas.',
-      },
-    ],
-    parentIssueId: undefined,
-    response: undefined,
-  };
-
   const bigIssueExample = [
     {
       docId: '310323-M000',
+      groupId: ["310323-D021", "310323-D002", "310323-D013"],
       nivel: 2,
       creator: {
         id: 'b35iITFkUxManITs2evFfdJywFr1',
@@ -116,6 +84,15 @@ const Priorities = () => {
                 text: 'Instagram outage announcement is being produced.',
                 likes: ['iYsVuKmr9sfny1pTNb8Tvi6X6HJ2'],
               },
+              {
+                id: 'Mangão 2',
+                userId: 'iYsVuKmr9sfny1pTNb8Tvi6X6HJ2',
+                img: 'https://via.placeholder.com/50',
+                name: 'Michael Jackson da Silva',
+                at: '31/03/2023 - 16:20:31',
+                text: 'Instagram outage announcement is being produced.',
+                likes: ['iYsVuKmr9sfny1pTNb8Tvi6X6HJ2'],
+              },
             ],
           },
           {
@@ -132,84 +109,16 @@ const Priorities = () => {
     },
   ];
 
-  const userId: string = 'iYsVuKmr9sfny1pTNb8Tvi6X6HJ2';
-  //Menu Refs.
-  const menuRefs = useRef<(HTMLUListElement | null)[]>([]);
-  const [comments, setComments] = useState<Comment[]>(
-    bigIssueExample.map(issue => issue.update.comments).flat(),
-  );
-  const [openReplies, setOpenReplies] = useState<boolean[]>(
-    Array(comments.length).fill(false),
-  );
-  const [openMenus, setOpenMenus] = useState<boolean[]>(
-    Array(comments.length).fill(false),
+  //const comments = bigIssueExample.map(issue => issue.update.comments).flat();
+
+  const [showUpdates, setShowUpdates] = useState(
+    Array(bigIssueExample.length).fill(false),
   );
 
-  const handleLikeComment = (commentId: string, userId: string) => {
-    const updatedComments = comments.map((comment: Comment) => {
-      if (comment.id === commentId) {
-        //Passa por todos os comentários, se o id for o mesmo...
-        if (comment.likes.includes(userId)) {
-          //Se já tiver dado like, é retirado.
-          const updatedLikes = comment.likes.filter(
-            usersId => usersId !== userId,
-          );
-          return { ...comment, likes: updatedLikes };
-        } else {
-          //Se não, adiciona.
-          const updatedLikes = [...comment.likes, userId];
-          return { ...comment, likes: updatedLikes };
-        }
-      }
-      return comment;
-    });
-    setComments(updatedComments);
-  };
-
-  const handleMenuOpen = (index: number) => {
-    setOpenMenus(prevOpenMenus => {
-      const newOpenMenus = prevOpenMenus.map((isOpen, i) => {
-        // Fecha os menus antigos, exceto o que está sendo aberto
-        if (isOpen && i !== index) {
-          return false;
-        }
-        return isOpen;
-      });
-      // Define o estado do menu que está sendo aberto
-      newOpenMenus[index] = !newOpenMenus[index];
-      return newOpenMenus;
-    });
-  };
-
-  // Função para fechar os menus quando clica fora deles.
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      // Percorre a lista de refs para fechar todos os menus
-      menuRefs.current.forEach(ref => {
-        if (
-          ref &&
-          !ref.contains(event.target as Node) &&
-          !(
-            event.target instanceof Element &&
-            event.target.closest('.comment-info-header-tools__toggle')
-          )
-        ) {
-          setOpenMenus(openMenus.map(() => false));
-        }
-      });
-    };
-
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [openMenus]);
-
-  const handleOpenReplies = (index: number) => {
-    const newOpenReplies = [...openReplies];
-    newOpenReplies[index] = !newOpenReplies[index];
-    setOpenReplies(newOpenReplies);
+  const handleShowUpdates = (index: number) => {
+    const newShowUpdates = [...showUpdates];
+    newShowUpdates[index] = !newShowUpdates[index];
+    setShowUpdates(newShowUpdates);
   };
 
   return (
@@ -224,8 +133,8 @@ const Priorities = () => {
       <PrioritiesCards showSort={false} />
       <Container as={'article'} className="mt-5 priorities-issue">
         {bigIssueExample &&
-          bigIssueExample.map(issue => (
-            <section key={issue.docId} className="priorities-issue-panel">
+          bigIssueExample.map((issue, index) => (
+            <section key={issue.docId} className="priorities-issue-panel mb-4">
               <div className="priorities-issue-panel-header">
                 <h3 className="priorities-issue-panel-header__title">
                   {issue.status.mode !== 2 ? (
@@ -335,96 +244,24 @@ const Priorities = () => {
                   </table>
                 </div>
               </div>
-              <div className="priorities-issue-panel-comments">
-                {comments.map((comment, index) => (
-                  <div key={comment.id} className="comment">
-                    <div className="comment-userProfile">
-                      <img
-                        src={comment.img}
-                        alt="User profile"
-                        className="comment-userProfile-img"
-                      />
-                    </div>
-                    <div className="comment-info">
-                      <div className="comment-info-header">
-                        <div className="comment-info-header-user">
-                          <span className="h6">{comment.name} •</span>
-                          <span className="comment-info__at">
-                            {' '}
-                            {comment.at}
-                          </span>
-                        </div>
-                        <div className="comment-info-header-tools">
-                          <span className="comment-info-header-tools__toggle">
-                            <BsThreeDots
-                              onClick={() => {
-                                handleMenuOpen(index);
-                              }}
-                            />
-                          </span>
-                          <ul
-                            className={`comment-info-header-tools__options ${
-                              !openMenus[index] && 'hidden'
-                            }`}
-                            ref={ref => {
-                              if (ref) {
-                                menuRefs.current[index] = ref;
-                              }
-                            }}
-                          >
-                            <li>Pin</li>
-                            <li>Share</li>
-                            <li>Report</li>
-                          </ul>
-                        </div>
-                      </div>
-                      <p className="comment-info__text">{comment.text}</p>
-                      <div className="comment-info__tools">
-                        <div className="comment-info__tools-likes">
-                          {comment.likes.includes(userId) ? (
-                            <RiThumbUpFill
-                              className="comment-info__tools-likes__thumbFill"
-                              onClick={() => {
-                                handleLikeComment(comment.id, userId);
-                              }}
-                            />
-                          ) : (
-                            <RiThumbUpLine
-                              className="comment-info__tools-likes__thumb"
-                              onClick={() => {
-                                handleLikeComment(comment.id, userId);
-                              }}
-                            />
-                          )}
-                          <span className="comment-info__tools-likes__count">
-                            {' '}
-                            {comments[index].likes.length}
-                          </span>
-                        </div>
-                        <div className="comment-info__tools-replies">
-                          {true && (
-                            <BsFillChatLeftTextFill
-                              className="comment-info__tools-replies__comment"
-                              onClick={() => {
-                                handleOpenReplies(index);
-                              }}
-                            />
-                          )}
-                          <span className="comment-info__tools-replies__count">
-                            {comments[index].replies
-                              ? comments[index].replies?.length
-                              : '0'}
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                          className={`comment-info__replies ${
-                            !openReplies[index] && 'hidden'
-                          }`}
-                        >Olá mundo!</div>
-                    </div>
-                  </div>
-                ))}
+              <h3 className="priorities-issue-panel-commentSection">
+                Issue Updates{' '}
+                <span
+                  className="priorities-issue-panel-commentSection__toggle"
+                  onClick={() => handleShowUpdates(index)}
+                >
+                  {showUpdates[index] ? (
+                    <IoMdArrowDropdown />
+                  ) : (
+                    <IoMdArrowDropup />
+                  )}
+                </span>
+              </h3>
+              <div className={showUpdates[index] ? '' : 'hidden'}>
+                <Comments
+                  commentData={issue.update.comments as Comment[]}
+                  showReplies={true}
+                />
               </div>
             </section>
           ))}

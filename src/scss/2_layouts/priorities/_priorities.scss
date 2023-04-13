@@ -168,6 +168,40 @@
           padding-bottom: 16px;
         }
       }
+
+      &-commentSection {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        color: variables.$global-subText-color;
+        padding-bottom: 16px;
+
+        &__toggle {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          position: relative;
+
+          &:hover {
+            &::after {
+              background-color: #1da0f22d;
+            }
+          }
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+          }
+        }
+      }
     }
   }
 }
@@ -176,9 +210,12 @@
   display: flex;
   gap: 6px;
   margin-bottom: 16px;
-  background-color: white;
+  background-color: variables.$priorities-info-comments;
   padding: 6px 16px;
   border-radius: 16px;
+  width: 100%;
+  border: 1px solid variables.$global-border-color;
+  box-sizing: border-box;
 
   &-userProfile {
     padding-right: 6px;
@@ -192,6 +229,8 @@
   }
 
   &-info {
+    width: 100% !important;
+
     svg {
       font-size: 1.5em;
       cursor: pointer;
@@ -319,4 +358,8 @@
       }
     }
   }
+}
+
+.replies {
+  margin: 10px 0px 0px 10px;
 }
