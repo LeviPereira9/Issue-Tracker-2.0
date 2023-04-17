@@ -9,6 +9,7 @@ import Comments from '../components/shared/Comments';
 //Icons
 import { BsShieldFillExclamation, BsShieldFillCheck } from 'react-icons/bs';
 import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
+import useAuthPriorities from '../hooks/useAuthPriorities';
 
 type Comment = {
   id: string;
@@ -28,6 +29,8 @@ type Comment = {
     likes: string[];
   }[];
 };
+
+
 
 const Priorities = () => {
   const bigIssueExample = [
@@ -111,6 +114,9 @@ const Priorities = () => {
 
   //const comments = bigIssueExample.map(issue => issue.update.comments).flat();
 
+  const {prioritieData} = useAuthPriorities();
+  console.log(prioritieData);
+  
   const [showUpdates, setShowUpdates] = useState(
     Array(bigIssueExample.length).fill(false),
   );

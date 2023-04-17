@@ -129,8 +129,6 @@ const Comments = ({ showReplies, commentData }: CommentsProps) => {
     setOpenReplies(newOpenReplies);
   };
 
-  console.log(comments);
-
   
   return (
     <div className="priorities-issue-panel-comments">
