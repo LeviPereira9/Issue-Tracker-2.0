@@ -2,10 +2,10 @@
 import { useState, useEffect, useRef } from 'react';
 
 //Icons
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TbClockHour2 } from 'react-icons/tb';
 import { BsThreeDots, BsFillChatLeftTextFill } from 'react-icons/bs';
 import { RiThumbUpLine, RiThumbUpFill } from 'react-icons/ri';
+import useTimestamp from '../../hooks/useTimestamp';
+import useAuthPriorities from '../../hooks/useAuthPriorities';
 
 type Comment = {
   id: string;
@@ -19,12 +19,12 @@ type Comment = {
 };
 
 type CommentsProps = {
+  docId: string;
   showReplies: boolean;
   commentData: Comment[];
 };
 
-const Comments = ({ showReplies, commentData }: CommentsProps) => {
-  
+const Comments = ({ showReplies, commentData, docId }: CommentsProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const issueExemple = {
     docId: 'Canvote',
@@ -51,6 +51,8 @@ const Comments = ({ showReplies, commentData }: CommentsProps) => {
     response: undefined,
   };
 
+  const { handleTimestamp } = useTimestamp();
+
   const userId: string = 'iYsVuKmr9sfny1pTNb8Tvi6X6HJ2';
   //Menu Refs.
   const menuRefs = useRef<(HTMLUListElement | null)[]>([]);
@@ -61,9 +63,11 @@ const Comments = ({ showReplies, commentData }: CommentsProps) => {
   const [openMenus, setOpenMenus] = useState<boolean[]>(
     Array(comments.length).fill(false),
   );
+  const { updateCommentLikes } = useAuthPriorities();
 
   const handleLikeComment = (commentId: string, userId: string) => {
-    const updatedComments = comments.map((comment: Comment) => {
+    console.log("?")
+    const updatedComments = comments.map( (comment: Comment) => {
       if (comment.id === commentId) {
         //Passa por todos os comentários, se o id for o mesmo...
         if (comment.likes.includes(userId)) {
@@ -71,16 +75,21 @@ const Comments = ({ showReplies, commentData }: CommentsProps) => {
           const updatedLikes = comment.likes.filter(
             usersId => usersId !== userId,
           );
+          console.log("Pode remover")
+          updateCommentLikes(docId, commentId, userId, true);
           return { ...comment, likes: updatedLikes };
         } else {
+          console.log("Pode adicionar")
           //Se não, adiciona.
           const updatedLikes = [...comment.likes, userId];
+          updateCommentLikes(docId, commentId, userId, false);
           return { ...comment, likes: updatedLikes };
         }
       }
       return comment;
     });
     setComments(updatedComments);
+    console.log(comments);
   };
 
   const handleMenuOpen = (index: number) => {
@@ -129,11 +138,13 @@ const Comments = ({ showReplies, commentData }: CommentsProps) => {
     setOpenReplies(newOpenReplies);
   };
 
-  
   return (
     <div className="priorities-issue-panel-comments">
       {comments.map((comment, index) => (
-        <div key={comment.id} className={showReplies ? "comment" : "comment replies"}>
+        <div
+          key={comment.id}
+          className={showReplies ? 'comment' : 'comment replies'}
+        >
           <div className="comment-userProfile">
             <img
               src={comment.img}
@@ -145,7 +156,10 @@ const Comments = ({ showReplies, commentData }: CommentsProps) => {
             <div className="comment-info-header">
               <div className="comment-info-header-user">
                 <span className="h6">{comment.name} •</span>
-                <span className="comment-info__at"> {comment.at}</span>
+                <span className="comment-info__at">
+                  {' '}
+                  {handleTimestamp(comment.at, false)}
+                </span>
               </div>
               <div className="comment-info-header-tools">
                 <span className="comment-info-header-tools__toggle">
@@ -174,7 +188,7 @@ const Comments = ({ showReplies, commentData }: CommentsProps) => {
             <p className="comment-info__text">{comment.text}</p>
             <div className="comment-info__tools">
               <div className="comment-info__tools-likes">
-                {comment.likes.includes(userId) ? (
+                {comment.likes && comment.likes.includes(userId) ? (
                   <RiThumbUpFill
                     className="comment-info__tools-likes__thumbFill"
                     onClick={() => {
@@ -191,7 +205,7 @@ const Comments = ({ showReplies, commentData }: CommentsProps) => {
                 )}
                 <span className="comment-info__tools-likes__count">
                   {' '}
-                  {comments[index].likes.length}
+                  {comments[index].likes && comments[index].likes.length}
                 </span>
               </div>
               <div className="comment-info__tools-replies">
@@ -221,6 +235,7 @@ const Comments = ({ showReplies, commentData }: CommentsProps) => {
                 <Comments
                   showReplies={false}
                   commentData={comments[index].replies!}
+                  docId={docId}
                 />
               )}
             </div>

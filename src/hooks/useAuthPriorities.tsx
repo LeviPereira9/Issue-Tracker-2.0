@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 //Firebase
 import { db } from '../firebase/config';
 import {
+  arrayRemove,
+  arrayUnion,
   collection,
   CollectionReference,
   doc,
@@ -14,6 +16,7 @@ import {
   query,
   QuerySnapshot,
   Timestamp,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 
@@ -123,12 +126,28 @@ const useAuthPriorities = () => {
     getPrioritiesDocs();
   }, []);
 
+  const updateCommentLikes = async (
+    docId: string,
+    commentId: string,
+    userId: string,
+    hasLiked: boolean,
+  ) => {
+    try {
+      const commentRef = doc(db, 'priorities', docId);
+
+      if (hasLiked) {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //Memory Leak function
   useEffect(() => {
     return () => setCancelled(true);
   }, []);
 
-  return { loading, error, prioritieData };
+  return { loading, error, prioritieData, updateCommentLikes };
 };
 
 export default useAuthPriorities;

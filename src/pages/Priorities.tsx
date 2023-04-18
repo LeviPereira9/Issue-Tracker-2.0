@@ -7,9 +7,17 @@ import PrioritiesCards from '../components/layout/priorities/PrioritiesCards';
 import Comments from '../components/shared/Comments';
 
 //Icons
-import { BsShieldFillExclamation, BsShieldFillCheck } from 'react-icons/bs';
+import {
+  BsShieldFillExclamation,
+  BsShieldFillCheck,
+  BsFillHeartPulseFill,
+} from 'react-icons/bs';
 import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import useAuthPriorities from '../hooks/useAuthPriorities';
+
+//Sla
+import { format, formatDistance } from 'date-fns';
+import useTimestamp from '../hooks/useTimestamp';
 
 type Comment = {
   id: string;
@@ -30,13 +38,11 @@ type Comment = {
   }[];
 };
 
-
-
 const Priorities = () => {
-  const bigIssueExample = [
+  /* const bigIssueExample = [
     {
       docId: '310323-M000',
-      groupId: ["310323-D021", "310323-D002", "310323-D013"],
+      groupId: ['310323-D021', '310323-D002', '310323-D013'],
       nivel: 2,
       creator: {
         id: 'b35iITFkUxManITs2evFfdJywFr1',
@@ -110,15 +116,12 @@ const Priorities = () => {
         ],
       },
     },
-  ];
+  ]; */
+  const { loading, error, prioritieData } = useAuthPriorities();
+  const { handleTimestamp } = useTimestamp();
 
-  //const comments = bigIssueExample.map(issue => issue.update.comments).flat();
-
-  const {prioritieData} = useAuthPriorities();
-  console.log(prioritieData);
-  
   const [showUpdates, setShowUpdates] = useState(
-    Array(bigIssueExample.length).fill(false),
+    prioritieData && Array(prioritieData.length).fill(false),
   );
 
   const handleShowUpdates = (index: number) => {
@@ -138,8 +141,8 @@ const Priorities = () => {
       </Container>
       <PrioritiesCards showSort={false} />
       <Container as={'article'} className="mt-5 priorities-issue">
-        {bigIssueExample &&
-          bigIssueExample.map((issue, index) => (
+        {Array.isArray(prioritieData) &&
+          prioritieData.map((issue, index) => (
             <section key={issue.docId} className="priorities-issue-panel mb-4">
               <div className="priorities-issue-panel-header">
                 <h3 className="priorities-issue-panel-header__title">
@@ -182,7 +185,10 @@ const Priorities = () => {
                       </tr>
                       <tr>
                         <td className="table-key">Created At:</td>
-                        <td className="table-value">{issue.createdAt}</td>
+                        <td className="table-value">
+                          {prioritieData[0] &&
+                            handleTimestamp(issue.createdAt, false)}
+                        </td>
                       </tr>
                       <tr>
                         <td className="table-key">
@@ -190,7 +196,7 @@ const Priorities = () => {
                         </td>
                         <td className="table-value">
                           {issue.closedAt
-                            ? issue.closedAt
+                            ? handleTimestamp(issue.closedAt, true)
                             : issue.expectedConclusion}
                         </td>
                       </tr>
@@ -243,7 +249,8 @@ const Priorities = () => {
                       <tr>
                         <td className="table-key">Departments:</td>
                         <td className="table-value">
-                          {issue.impact.deparments.join(', ') + '.'}
+                          {issue.impact.departments &&
+                            issue.impact.departments.join(', ') + '.'}
                         </td>
                       </tr>
                     </tbody>
@@ -267,6 +274,7 @@ const Priorities = () => {
                 <Comments
                   commentData={issue.update.comments as Comment[]}
                   showReplies={true}
+                  docId={issue.docId}
                 />
               </div>
             </section>
