@@ -6,13 +6,14 @@ import { BsThreeDots, BsFillChatLeftTextFill } from 'react-icons/bs';
 import { RiThumbUpLine, RiThumbUpFill } from 'react-icons/ri';
 import useTimestamp from '../../hooks/useTimestamp';
 import useAuthPriorities from '../../hooks/useAuthPriorities';
+import { Timestamp } from 'firebase/firestore';
 
 type Comment = {
   id: string;
   userId: string;
   img: string;
   name: string;
-  at: string;
+  at: Timestamp;
   text: string;
   likes: string[];
   replies?: Comment[];
@@ -66,8 +67,7 @@ const Comments = ({ showReplies, commentData, docId }: CommentsProps) => {
   const { updateCommentLikes } = useAuthPriorities();
 
   const handleLikeComment = (commentId: string, userId: string) => {
-    console.log("?")
-    const updatedComments = comments.map( (comment: Comment) => {
+    const updatedComments = comments.map((comment: Comment) => {
       if (comment.id === commentId) {
         //Passa por todos os comentários, se o id for o mesmo...
         if (comment.likes.includes(userId)) {
@@ -75,11 +75,11 @@ const Comments = ({ showReplies, commentData, docId }: CommentsProps) => {
           const updatedLikes = comment.likes.filter(
             usersId => usersId !== userId,
           );
-          console.log("Pode remover")
+          console.log('Pode remover');
           updateCommentLikes(docId, commentId, userId, true);
           return { ...comment, likes: updatedLikes };
         } else {
-          console.log("Pode adicionar")
+          console.log('Pode adicionar');
           //Se não, adiciona.
           const updatedLikes = [...comment.likes, userId];
           updateCommentLikes(docId, commentId, userId, false);
@@ -89,7 +89,6 @@ const Comments = ({ showReplies, commentData, docId }: CommentsProps) => {
       return comment;
     });
     setComments(updatedComments);
-    console.log(comments);
   };
 
   const handleMenuOpen = (index: number) => {
@@ -138,6 +137,7 @@ const Comments = ({ showReplies, commentData, docId }: CommentsProps) => {
     setOpenReplies(newOpenReplies);
   };
 
+
   return (
     <div className="priorities-issue-panel-comments">
       {comments.map((comment, index) => (
@@ -158,7 +158,7 @@ const Comments = ({ showReplies, commentData, docId }: CommentsProps) => {
                 <span className="h6">{comment.name} •</span>
                 <span className="comment-info__at">
                   {' '}
-                  {handleTimestamp(comment.at, false)}
+                  {false && handleTimestamp(comment.at, false)}
                 </span>
               </div>
               <div className="comment-info-header-tools">

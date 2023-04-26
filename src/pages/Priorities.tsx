@@ -18,13 +18,14 @@ import useAuthPriorities from '../hooks/useAuthPriorities';
 //Sla
 import { format, formatDistance } from 'date-fns';
 import useTimestamp from '../hooks/useTimestamp';
+import { Timestamp } from 'firebase/firestore';
 
 type Comment = {
   id: string;
   userId: string;
   img: string;
   name: string;
-  at: string;
+  at: Timestamp;
   text: string;
   likes: string[];
   replies?: {
@@ -32,7 +33,7 @@ type Comment = {
     userId: string;
     name: string;
     img: string;
-    at: string;
+    at: Timestamp;
     text: string;
     likes: string[];
   }[];
@@ -272,7 +273,7 @@ const Priorities = () => {
               </h3>
               <div className={showUpdates[index] ? '' : 'hidden'}>
                 <Comments
-                  commentData={issue.update.comments as Comment[]}
+                  commentData={issue.update.comments}
                   showReplies={true}
                   docId={issue.docId}
                 />
